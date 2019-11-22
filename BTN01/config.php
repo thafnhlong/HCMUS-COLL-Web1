@@ -5,10 +5,10 @@ $DB_TYPE      = 'mysql:host';
 $DB_NAME_TYPE = 'dbname'; //Label for database name
 $DB_OPTIONAL  = ';charset=utf8';
 // --
-$DB_HOST     = 'localhost';
-$DB_NAME     = 'databasename';
-$DB_USER     = 'user';
-$DB_PASSWORD = 'pass';
+$DB_HOST     = 'remotemysql.com';
+$DB_NAME     = 'jySgavqbrA';
+$DB_USER     = 'jySgavqbrA';
+$DB_PASSWORD = 'sIUeCdGFlA';
 
 // Email config
 $EMAIL_NAME     = 'noreply';
