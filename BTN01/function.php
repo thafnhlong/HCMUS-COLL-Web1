@@ -91,3 +91,44 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+
+/*Newfeed*/
+function userPost($user,$content,$image)
+{
+    global $pdo;   
+    $stmt = $pdo->prepare("INSERT post(Content,UserID,IMGContent) values (?,?,?)");
+    $stmt->execute(array($content,$user['ID'], $image) );
+    return $pdo->lastInsertId();
+}
+function loadPost()
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT p.Content,p.Time,p.ID,u.Name,u.ID uid FROM post p JOIN user u ON u.ID=p.UserID ORDER BY p.Time DESC ");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/*util*/
+function checkImageType($type)
+{
+    $allowed = array("image/jpeg", "image/gif", "image/png");
+    if(!in_array($type, $allowed))
+        return false;
+    return true;
+}
+function getImagePost($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT IMGContent FROM post WHERE ID=?");
+    $stmt->execute(array($id));
+    $image = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $image['IMGContent'];
+}
+function getImageUser($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT Image FROM user WHERE ID=?");
+    $stmt->execute(array($id));
+    $image = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $image['Image'];
+}
