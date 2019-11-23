@@ -45,7 +45,8 @@ if (isset($_POST['submit']) )
         }
     } else 
         $error = -1;
-}
+} else 
+    $error = -3;
 
 include "header.php";
 ?>
@@ -65,7 +66,7 @@ elseif ($error == 2) :
 ?>
     <h3 style="color:red;">Kich thuoc tap tin vuot qua muc quy dinh</h3>
 <?php
-else:
+elseif ($error == -1):
 ?>
     <h3 style="color:red;">Ban phai nhap du lieu de dang bai</h3>
 <?php
