@@ -12,7 +12,7 @@ $DB_PASSWORD = 'sIUeCdGFlA';
 
 // Email config
 $EMAIL_NAME     = 'noreply';
-$EMAIL_FROM     = 'username@email.com';
-$EMAIL_PASSWORD = 'pass';
+$EMAIL_FROM     = 'bao01664165857@gmail.com';
+$EMAIL_PASSWORD = '01664165857Bao';
 // Base url config
-$BASE_URL = 'http://localhost:8080/BTN01';
+$BASE_URL = 'http://localhost:8080/LTWEB1/BTN01';
