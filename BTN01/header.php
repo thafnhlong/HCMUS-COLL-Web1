@@ -7,11 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>BTN01-SBTC</title>
+    <?php require_once("css-header.php"); ?>
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.php">Lập trình Web 1</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,8 +24,11 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <?php if ($currentUser): ?>
-            <li class="nav-item <?php echo $CurrentPage == 'sum' ? 'active' : '' ?>">
-              <a class="nav-link" href="sum.php">Tính tổng</a>
+            <li class="nav-item <?php echo $CurrentPage == 'create-profile' ? 'active' : '' ?>">
+              <a class="nav-link" href="create-profile.php">Cập nhật thông tin cá nhân</a>
+            </li>
+            <li class="nav-item <?php echo $CurrentPage == 'profile' ? 'active' : '' ?>">
+              <a class="nav-link" href="profile.php">Trang cá nhân</a>
             </li>
             <?php endif; ?>
             <?php if (!$currentUser): ?>
@@ -34,9 +38,8 @@
             <li class="nav-item <?php echo $CurrentPage == 'login' ? 'active' : '' ?>">
               <a class="nav-link" href="login.php">Đăng nhập</a>
             </li>
-			</li>
-            <li class="nav-item <?php echo $CurrentPage == 'forgotpass' ? 'active' : '' ?>">
-              <a class="nav-link" href="forgotpass.php">Quên mật khẩu</a>
+            <li class="nav-item <?php echo $CurrentPage == 'forgot_password' ? 'active' : '' ?>">
+              <a class="nav-link" href="forgot_password.php">Quên mật khẩu</a>
             </li>
             <?php else: ?>
             <li class="nav-item <?php echo $CurrentPage == 'change-password' ? 'active' : '' ?>">

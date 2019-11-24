@@ -132,3 +132,145 @@ function getImageUser($id)
     $image = $stmt->fetch(PDO::FETCH_ASSOC);
     return $image['Image'];
 }
+
+/* cập nhật họ tên số điện thoại */
+function updateProfile($name,$phone,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Name= ?,PhoneNumber=? where ID=?");
+    return $stmt->execute(array($name,$phone,$id));
+}
+
+/* thực hiện truy vấn lưu vào Image */
+function upIMGtoSql($img,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Image=? WHERE ID=?");
+    $stmt->execute(array($img,$id));
+    $pdo->lastInsertId();
+}
+
+/* lưu ảnh vào database */
+function uploadFileToSql($temp):void
+{
+    $image=file_get_contents($_FILES['file']['tmp_name']);
+    upIMGtoSql($image,$temp);
+}
+
+/* kiểm tra xem email đã tồn tại chưa */
+function checkEmail($Email)
+{
+    global $pdo; 
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE Email=?");
+    $stmt->execute(array($Email));
+    $tmp=$stmt->fetch(PDO::FETCH_ASSOC);
+    if($tmp!=null)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/* gửi email để kích hoạt lại mật khẩu */
+function SendMailFogetPasss($name,$email)
+    {
+        global $pdo,$BASE_URL;
+        $code=generateRandomString(16);
+        $stmt = $pdo->prepare("UPDATE user SET CodeForgot=? where Email=?");
+        $stmt->execute(array($code,$email));
+        $pdo->lastInsertId();
+        sendEmail($email,$name,'Thiết lập lại mật khẩu',"Mã kích hoạt tài khoản của bạn là <a href=\"$BASE_URL/checkCodeForgot.php?code=$code\">$BASE_URL/checkCodeForgot.php?code=$code</a>");
+    }
+
+/* câp nhật mật khẩu mới qua email */
+function UpdatePass($email,$pass)
+    {
+        global $pdo;
+        $haspass=password_hash($pass,PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("UPDATE user SET Pass=? where Email=?");
+        $stmt->execute(array($haspass,$email));
+        $pdo->lastInsertId();
+    }
+
+/* Đổi mật khẩu */
+function ChangePass($pass,$id)
+    {
+        global $pdo;
+        $haspass=password_hash($pass,PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("UPDATE user SET Pass=? where ID=?");
+        return $stmt->execute(array($haspass,$id));
+    }
+
+/* Lấy các contetn đã đăng trên trang cá nhân */
+function GetStatusByUserID($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM post where UserID=?  ORDER BY Time DESC");
+    $stmt->execute(array($id));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+/* Thêm ảnh bìa */
+function saveCoverImage($id)
+{
+    $image=file_get_contents($_FILES['fileAvatar']['tmp_name']);
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET CoverImage=? WHERE ID=?");
+    $stmt->execute(array($image,$id));
+    $pdo->lastInsertId();
+}
+/* get ảnh bìa */
+function getCoverImage($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT CoverImage FROM user WHERE ID=?");
+    $stmt->execute(array($id));
+    $image = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $image['CoverImage'];
+}
+
+/* update mô tả bản thân */
+function updateAboutMe($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET AboutMe=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* update số điện thoại */
+function updatePhoneNumber($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET PhoneNumber=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+/* update email  */
+function updateEmail($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Email=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* update facebook */
+function updateFaceBook($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET FaceBook=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* update địa chỉ */
+function updateAddress($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Address=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}

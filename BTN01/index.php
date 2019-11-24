@@ -98,7 +98,7 @@ foreach(loadPost() as $post):
         <pre><?php echo $post['Content']?>
         </pre>
         <img style="max-width: 500px;max-height: 200px;" src="getImage.php?type=post&id=<?php echo $post['ID']?>">
-      </div>
+    </div>
 <?php
 endforeach;
 ?>

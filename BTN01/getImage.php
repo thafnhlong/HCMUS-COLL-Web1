@@ -14,6 +14,10 @@ if (!empty($_GET['id']) && !empty($_GET['type']))
     $id = $_GET['id'];
     if ($_GET['type'] == "avatar")
         echo getImageUser($id);
-    else
+    else if($_GET['type'] == "coverimage")
+        echo getCoverImage($id);
+    else 
         echo getImagePost($id);
+    
 }
+
