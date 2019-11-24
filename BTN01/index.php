@@ -90,7 +90,17 @@ endif;
     <h2>Danh sách bài viết</h2>
     <div>
 <?php
-foreach(loadPost() as $post):
+$countPost = getCountPost()['num'];
+$countPage = (int)($countPost / ($numPostofPage+1)+1);
+$pagenum = 1;
+
+if (!empty($_GET['num']))
+{
+    $num = $_GET['num'];    
+    $pagenum = $num < 1 ? 1 : ($num > $countPage ? $countPage : $num);
+}
+
+foreach(loadPost($pagenum) as $post):
 ?>
       <div style="padding: 20px;overflow:auto;border:2px solid;margin:5px;">
         <img style="float:left" src="getImage.php?type=avatar&id=<?php echo $post['uid']?>" width="42" height="42">
@@ -104,6 +114,31 @@ foreach(loadPost() as $post):
 endforeach;
 ?>
     </div>
+<?php
+if ($countPost > 0):
+?>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+      
+        <li class="page-item <?php if ($pagenum==1) echo "disabled"; ?>">
+          <a class="page-link" href="?num=<?php echo $pagenum-1?>" tabindex="-1">Quay lại</a>
+        </li>
+<?php
+    for($i = 1; $i <= $countPage;$i++):
+?>        
+        <li class="page-item <?php if ($i == $pagenum) echo "active";?>"><a class="page-link" href="?num=<?php echo $i?>"><?php echo $i?></a></li>
+<?php
+    endfor;
+?>        
+        <li class="page-item <?php if ($pagenum==$countPage) echo "disabled" ?>">
+          <a class="page-link" href="?num=<?php echo $pagenum+1?>">Tiếp theo</a>
+        </li>
+        
+      </ul>
+    </nav>
+<?php
+endif;
+?>    
   </div>
 </div>
 

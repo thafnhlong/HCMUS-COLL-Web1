@@ -16,3 +16,6 @@ $EMAIL_FROM     = 'bao01664165857@gmail.com';
 $EMAIL_PASSWORD = '01664165857Bao';
 // Base url config
 $BASE_URL = 'http://localhost:8080/LTWEB1/BTN01';
+
+// Pagination
+$numPostofPage = 10;
