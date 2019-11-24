@@ -91,7 +91,7 @@ endif;
     <div>
 <?php
 $countPost = getCountPost()['num'];
-$countPage = (int)($countPost / ($numPostofPage+1)+1);
+$countPage = (int)(($countPost-1) / $numPostofPage+1);
 $pagenum = 1;
 
 if (!empty($_GET['num']))
@@ -115,7 +115,7 @@ endforeach;
 ?>
     </div>
 <?php
-if ($countPost > 0):
+if ($countPage > 0):
 ?>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
