@@ -100,12 +100,22 @@ function userPost($user,$content,$image)
     $stmt->execute(array($content,$user['ID'], $image) );
     return $pdo->lastInsertId();
 }
-function loadPost()
+function loadPost($page)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT p.Content,p.Time,p.ID,u.Name,u.ID uid FROM post p JOIN user u ON u.ID=p.UserID ORDER BY p.Time DESC ");
+    global $numPostofPage;
+    $stmt = $pdo->prepare("SELECT p.Content,p.Time,p.ID,u.Name,u.ID uid FROM post p JOIN user u ON u.ID=p.UserID ORDER BY p.Time DESC LIMIT ?, ?");
+    $stmt->bindValue(1, $numPostofPage*($page-1), PDO::PARAM_INT);
+    $stmt->bindValue(2, $numPostofPage, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getCountPost()
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) num FROM post");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 /*util*/
@@ -122,7 +132,7 @@ function getImagePost($id)
     $stmt = $pdo->prepare("SELECT IMGContent FROM post WHERE ID=?");
     $stmt->execute(array($id));
     $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $image['IMGContent'];
+    return empty($image['IMGContent']) ? emptyImage() : $image['IMGContent'];
 }
 function getImageUser($id)
 {
@@ -130,7 +140,11 @@ function getImageUser($id)
     $stmt = $pdo->prepare("SELECT Image FROM user WHERE ID=?");
     $stmt->execute(array($id));
     $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $image['Image'];
+    return empty($image['Image']) ? emptyImage() : $image['Image'];
+}
+function emptyImage()
+{
+    return base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY3growIAAycBLhVrvukAAAAASUVORK5CYII=");
 }
 
 /* cập nhật họ tên số điện thoại */
