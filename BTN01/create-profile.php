@@ -19,7 +19,10 @@ ob_start();
     if($NameUD!='')
     {
         updateProfile($NameUD,$PhoneUD,$currentUser['ID']);
-        uploadFileToSql($currentUser['ID']);
+        if($_FILES['file']['tmp_name']!=null)
+        {
+            uploadFileToSql($currentUser['ID']);
+        }
         $temp=true;
     }
 ?>
@@ -40,8 +43,8 @@ ob_start();
     </div>
     <div class="form-group">
     <div class="form-group">
-        <label ></label><strong>Họ và tên </strong></label>
-        <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber"  placeholder="Nhập số điện thoại ...">
+        <label ></label><strong>Số điện thoại </strong></label>
+        <input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber" value="<?php echo $currentUser['PhoneNumber'] ?>" placeholder="Nhập số điện thoại ...">
     </div>
     <div class="form-group">
       <label for="fileSelect"><strong>Avatar</strong></label>

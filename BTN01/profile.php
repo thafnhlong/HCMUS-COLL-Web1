@@ -39,7 +39,7 @@ ob_start();
     <link rel="stylesheet" href="Apps/global/vendor/plyr/plyr.css">
     <link rel="stylesheet" href="Apps/global/vendor/magnific-popup/magnific-popup.css">
     <link rel="stylesheet" href="Apps/assets/examples/css/pages/profile_v3.css">
-    <link rel="stylesheet" href="../../assets/examples/css/uikit/modals.css">
+    <link rel="stylesheet" href="Apps/assets/examples/css/uikit/modals.css">
 
     <div class="page">
       <div class="page-content container-fluid">
@@ -49,7 +49,12 @@ ob_start();
               <!-- onclick="document.getElementById('coverimage').click()" -->
               <i class="fas fa-2x fa-camera" data-target="#exampleFormModal" data-toggle="modal"
                         style="display: inline-block;position: absolute; top: 10px; left:10px; cursor: pointer"></i>          
-              <img id="imgcover" style="width:700px;height:250px" src="getImage.php?type=coverimage&id=<?php echo $currentUser['ID']?>" >
+              
+              <?php if(isset($currentUser['CoverImage'])): ?>
+                <img id="imgcover" style="width:700px;height:250px" src="getImage.php?type=coverimage&id=<?php echo $currentUser['ID']?>" >
+              <?php else:?>
+                <img id="imgcover" style="width:700px;height:250px" src="image/defaultCoverIMG.jpg" >
+              <?php endif; ?>
               <!--<input type="file" name="cover" id="coverimage" style="display: none;">-->    
               <div class="card-block wall-person-info">
                 <a class="avatar bg-white img-bordered person-avatar">
@@ -65,9 +70,15 @@ ob_start();
             <div class="card card-shadow">
               <div class="card-block media clearfix p-25">
                 <div class="pr-20">
-                  <a href="#" class="avatar avatar-lg">
-                    <img class="img-fluid" src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>">
-                  </a>
+                  <?php if(!$currentUser['Image']): ?>
+                    <a href="#" class="avatar avatar-lg">
+                      <img class="img-fluid" src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>">
+                    </a>
+                  <?php else: ?>
+                    <a href="#" class="avatar avatar-lg">
+                      <img class="img-fluid" src="image/defaultavt.png">
+                    </a>
+                  <?php endif; ?>
                 </div>
                 <div class="media-body text-middle">
                   <h4 class="mt-0 mb-5">
@@ -98,7 +109,7 @@ ob_start();
             <div class="card card-block">
               <i class="fas fa-sm fa-edit" data-target="#modalAboutMe" data-toggle="modal" style="display: inline-block;position: absolute; top: 10px; left:10px; cursor: pointer"></i>     
               <br>
-              <h4 class="card-title">Tự giáo thiệu bản thân</h4>   
+              <h4 class="card-title">Tự giới thiệu bản thân</h4>   
               <p class="card-text">
               <?php echo $currentUser['AboutMe'] ?>
               </p>
@@ -258,6 +269,18 @@ ob_start();
     <script src="Apps/assets/examples/js/pages/profile_v3.js"></script>
     <script src="Apps/global/vendor/plyr/plyr.js"></script>
     <script src="Apps/global/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    
+
+    <script>
+      (function(document, window, $){
+        'use strict';
+    
+        var Site = window.Site;
+        $(document).ready(function(){
+          Site.run();
+        });
+      })(document, window, jQuery);
+    </script>
 
     <script>
       $('#fileSelect').change(function(event){
