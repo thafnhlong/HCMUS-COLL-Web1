@@ -63,7 +63,7 @@ include "header.php";
 											</div><!--username-dt end-->
 											<div class="user-specs">
 												<h3><?php echo $currentUser['Name']?></h3>
-												<span>Student</span>
+												<span><?php echo $currentUser['Job']?></span>
 											</div>
 										</div><!--user-profile end-->
 										<ul class="user-fw-status">
@@ -128,7 +128,7 @@ include "header.php";
 									<div class="posts-section">
 <?php
 $countPost = getCountPost()['num'];
-$countPage = (int)(($countPost-1) / $numPostofPage+1);
+$countPage = (int)(($countPost-1) / $numPostOfPage+1);
 $pagenum = 1;
 
 if (!empty($_GET['num']))
@@ -148,18 +148,6 @@ foreach(loadPost($pagenum) as $post):
 														<span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
 													</div>
 												</div>
-                                                <!--
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div>
-                                                -->
 											</div>
 											<div class="epi-sec">
 												<ul class="bk-links">
@@ -218,11 +206,11 @@ endif;
 									<div class="widget widget-about">
 										<img src="images/wd-logo.png" alt="">
 										<h3>Welcome to SBTC-LTWEB1</h3>
-										<span>Danh sach thanh vien:</span>
+										<span>Member list:</span>
 										<div class="sign_link">
 											<h4><a>1760357-Nguyễn Thành Long</a></h4>
-											<h4><a>1760357-Nguyễn Thành Long</a></h4>
-                                            <h4><a>1760357-Nguyễn Thành Long</a></h4>
+											<h4><a>1760387-Nguyễn Thanh Phong</a></h4>
+                                            <h4><a>1760422-La Chí Thành</a></h4>
 										</div>
 									</div><!--widget-about end-->
 									<div class="widget widget-jobs">
@@ -272,7 +260,8 @@ endif;
 							</div>
                             <div class="col-lg-12 custom-file">
                                 <div class="add-dp" id="OpenImgUpload">
-                                    <input type="file" name="file" id="file">
+                                    <input type="file" name="file" id="file" onchange="if (this.files.length > 0) document.getElementById('OpenImgUpload').getElementsByTagName('span')[0].innerHTML = this.files[0].name"
+                                        onclick="document.getElementById('OpenImgUpload').getElementsByTagName('span')[0].innerHTML = 'Image size must be < 50kb'">
                                     <label style="margin: 20px 0 0 20px;" for="file"><i class="fas fa-camera"></i></label>												
                                     <span>Image size must be < 50kb</span>
                                 </div>
@@ -296,7 +285,7 @@ endif;
 <?php
 if (!$error):
 ?>
-    <!--<h3 style="color:chartreuse;">Dang tin thanh cong</h3>-->
+    <script>alert('Post successfully!')</script>
 <?php
 elseif ($error == 1) :
 ?>
@@ -304,7 +293,7 @@ elseif ($error == 1) :
 <?php
 elseif ($error == 2) :
 ?>
-    <script>alert('Image size is over!')</script>
+    <script>alert('Image size is over limit!')</script>
 <?php
 elseif ($error == -1):
 ?>
