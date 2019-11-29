@@ -27,13 +27,13 @@ function findUserById($id) {
 }
 
 /* tao moi user */
-function createUser($displayName, $email, $password) {
+function createUser($displayName, $email, $password,$phonenumber,$address) {
     global $pdo;
     global $BASE_URL;
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
     $code = generateRandomString(16);
-    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, Image, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute(array($displayName, $email, $hashPassword, 0, $code,0,0,0));
+    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, Image, PhoneNumber, CoverImage, AboutMe, FaceBook, Address, Job) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)");
+    $stmt->execute(array(   $displayName, $email, $hashPassword, 0, $code,     0,          0,    $phonenumber, 0,          0,      0,       $address, 0));
     $id = $pdo->lastInsertId();
     sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
     return $id;
@@ -284,6 +284,34 @@ function updateAddress($temp,$id)
 {
     global $pdo;
     $stmt = $pdo->prepare("UPDATE user SET Address=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật ảnh đại diện */
+function UpdateAvatar($id)
+{
+    $image=file_get_contents($_FILES['filesAvt']['tmp_name']);
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Image=? WHERE ID=?");
+    $stmt->execute(array($image,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật công việc */
+function updateJob($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Job=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật tên */
+function updateName($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Name=? where ID=?");
     $stmt->execute(array($temp,$id));
     $pdo->lastInsertId();
 }

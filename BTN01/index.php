@@ -1,15 +1,12 @@
 <?php
 require_once("init.php");
 require_once("function.php");
-
 if(!$currentUser)
 {
     header('Location: login.php');
     die();
 }
-
 $error = 0;
-
 if (isset($_POST['submit']) )
 {
     if (!empty($_POST['content']))
@@ -43,7 +40,6 @@ if (isset($_POST['submit']) )
         $error = -1;
 } else 
     $error = -3;
-
 include "header.php";
 ?>
 
@@ -130,13 +126,11 @@ include "header.php";
 $countPost = getCountPost()['num'];
 $countPage = (int)(($countPost-1) / $numPostOfPage+1);
 $pagenum = 1;
-
 if (!empty($_GET['num']))
 {
     $num = $_GET['num'];    
     $pagenum = $num < 1 ? 1 : ($num > $countPage ? $countPage : $num);
 }
-
 foreach(loadPost($pagenum) as $post):
 ?>
 										<div class="post-bar">
