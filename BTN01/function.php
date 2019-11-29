@@ -32,10 +32,10 @@ function createUser($displayName, $email, $password,$phonenumber,$address) {
     global $BASE_URL;
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
     $code = generateRandomString(16);
-    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, Image, PhoneNumber, CoverImage, AboutMe, FaceBook, Address, Job) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)");
-    $stmt->execute(array(   $displayName, $email, $hashPassword, 0, $code,     0,          0,    $phonenumber, 0,          0,      0,       $address, 0));
+    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, PhoneNumber, Address ) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
+    $stmt->execute(array($displayName, $email, $hashPassword, 0, $code,0,$phonenumber,$address));
     $id = $pdo->lastInsertId();
-    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
+    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là  <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
     return $id;
 }
 /* active user*/
@@ -314,4 +314,13 @@ function updateName($temp,$id)
     $stmt = $pdo->prepare("UPDATE user SET Name=? where ID=?");
     $stmt->execute(array($temp,$id));
     $pdo->lastInsertId();
+}
+
+/* cập nhật mật khẩu mới */
+function updatePassByAccount($pass,$id)
+{
+    global $pdo;
+    $haspass=password_hash($pass,PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("UPDATE user SET Pass=? where ID=?");
+    return $stmt->execute(array($haspass,$id));
 }

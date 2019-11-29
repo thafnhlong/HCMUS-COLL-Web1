@@ -3,7 +3,6 @@ ob_start();
   require_once 'init.php';
 ?>
 <?php include 'header-first.php'; ?>
-<h1>Kích hoạt mật khẩu</h1>
 <?php if (isset($_GET['code'])): ?>
 <?php
   $success = false;
@@ -13,19 +12,105 @@ ob_start();
   }
 ?>
 <?php if ($success): ?>
-<?php header('Location: reset_password.php'); ?>
+<?php header('Location: reset-password.php'); ?>
 <?php else: ?>
-<div class="alert alert-danger" role="alert">
-  Kích hoạt mật khẩu thất bại
-</div>
+    <div class="wrapper">
+        <div class="sign-in-page">
+            <div class="signin-popup">
+                <div class="signin-pop">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="login-sec">
+                                <ul class="sign-control">
+                                    <div class="sign_in_sec current" id="tab-2">
+                                          <h3 style="text-align: left;">Activate User</h3>
+                                        <div class="dff-tab current" id="tab-3">
+                                          <form method="GET">
+                                                <div class="row">
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <input type="text" name="code" placeholder="Activation Code">
+                                                            <i class="la la-barcode"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span style="color:red">* Kích hoạt tài khoản thất bại</span>
+                                                    <div class="col-lg-12 no-pdd">
+                                                      <button type="submit" class="btn btn-primary">Kích hoạt tài khoản</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--dff-tab end-->
+                                    </div>
+                            </div>
+                            <!--login-sec end-->
+                        </div>
+                    </div>
+                </div>
+                <!--signin-pop end-->
+            </div>
+            <!--signin-popup end-->
+            <div class="footy-sec">
+                <div class="container">
+                    <p><img src="images/copy-icon.png" alt="">Copyright 2019</p>
+                </div>
+            </div>
+            <!--footy-sec end-->
+        </div>
+        <!--sign-in-page end-->
+
+
+    </div>
 <?php endif; ?>
 <?php else: ?>
-<form method="GET">
-  <div class="form-group">
-    <label for="code">Mã kích hoạt</label>
-    <input type="text" class="form-control" id="code" name="code" placeholder="Mã kích hoạt">
-  </div>
-  <button type="submit" class="btn btn-primary">Kích hoạt mật khẩu</button>
-</form>
+    <div class="wrapper">
+        <div class="sign-in-page">
+            <div class="signin-popup">
+                <div class="signin-pop">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="login-sec">
+                                <ul class="sign-control">
+                                    <div class="sign_in_sec current" id="tab-2">
+                                          <h3 style="text-align: left;">Activate User</h3>
+                                        <div class="dff-tab current" id="tab-3">
+                                          <form method="GET">
+                                                <div class="row">
+                                                    <div class="col-lg-12 no-pdd">
+                                                        <div class="sn-field">
+                                                            <input type="text" name="code" placeholder="Activation Code">
+                                                            <i class="la la-barcode"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 no-pdd">
+                                                      <button type="submit" class="btn btn-primary">Kích hoạt tài khoản</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--dff-tab end-->
+                                    </div>
+                            </div>
+                            <!--login-sec end-->
+                        </div>
+                    </div>
+                </div>
+                <!--signin-pop end-->
+            </div>
+            <!--signin-popup end-->
+            <div class="footy-sec">
+                <div class="container">
+                    <p><img src="images/copy-icon.png" alt="">Copyright 2019</p>
+                </div>
+            </div>
+            <!--footy-sec end-->
+        </div>
+        <!--sign-in-page end-->
+
+
+    </div>
 <?php endif; ?>
-<?php include 'footer.php'; ?>
+<?php include 'footer-first.php'; ?>
+
+
+
