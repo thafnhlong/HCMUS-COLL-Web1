@@ -2,7 +2,7 @@
 ob_start();
   require_once 'init.php';
 ?>
-<?php include 'header.php'; ?>
+<?php include 'header-first.php'; ?>
 <h1>Kích hoạt mật khẩu</h1>
 <?php if (isset($_GET['code'])): ?>
 <?php
