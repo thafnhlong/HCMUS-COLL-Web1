@@ -72,7 +72,7 @@ include "header.php";
 												<span>0</span>
 											</li>
 											<li>
-												<a href="my-profile.html" title="">View Profile</a>
+												<a href="my-account.php" title="">View Profile</a>
 											</li>
 										</ul>
 									</div><!--user-data end-->
