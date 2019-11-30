@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SBTC-LTWEB1</title>
-</head>
-
 <?php 
 ob_start();
   require_once 'init.php';
 ?>
 <?php include 'header.php'; ?>
-
+<?php
+    if(!$currentUser)
+    {
+        header('Location: index.php');
+        exit();
+    }
+?>
 <!-- Xử lý -->
 
 <!-- cật nhật ảnh bìa -->
@@ -47,7 +45,10 @@ ob_start();
 <?php updateJob($_POST['job'],$currentUser['ID']) ?>
 <?php header('Location: my-account.php'); ?>
 <?php endif; ?>
-
+<!-- xử lý hình ảnh -->
+<?php 
+	
+?>
 <!-- Kết thúc xử lý -->
 
 <body oncontextmenu="return false;">
@@ -111,63 +112,7 @@ ob_start();
 										<!--End khung thông tin mạng xã hội-->
 									</div>
 									<!--Open khung thông tin bạn bè-->
-									<div class="suggestions full-width">
-										<div class="sd-title">
-											<h3>People Viewed Profile</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<img src="images/resources/s1.png" alt="">
-												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="images/resources/s2.png" alt="">
-												<div class="sgt-text">
-													<h4>John Doe</h4>
-													<span>PHP Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="images/resources/s3.png" alt="">
-												<div class="sgt-text">
-													<h4>Poonam</h4>
-													<span>Wordpress Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="images/resources/s4.png" alt="">
-												<div class="sgt-text">
-													<h4>Bill Gates</h4>
-													<span>C & C++ Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="images/resources/s5.png" alt="">
-												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											<div class="suggestion-usd">
-												<img src="images/resources/s6.png" alt="">
-												<div class="sgt-text">
-													<h4>John Doe</h4>
-													<span>PHP Developer</span>
-												</div>
-												<span><i class="la la-plus"></i></span>
-											</div>
-											
-										</div><!--suggestions-list end-->
-									</div>
+									
 									<!--End khung thông tin bạn bè-->
 								</div><!--main-left-sidebar end-->
 							</div>
@@ -206,7 +151,7 @@ ob_start();
 													<img style="height:50px" src="images/defaultavt.png" alt="">
 <?php endif; ?>
 														<div class="usy-name">
-															<h3>John Doe</h3>
+															<h3><?php echo $currentUser['Name'] ?></h3>
 															<span><img src="images/clock.png" alt=""><?php echo $post['Time'] ?></span>
 														</div>
 													</div>
@@ -283,8 +228,7 @@ ob_start();
 												<br>
 												<p><strong>Ghi chú:</strong> Chỉ cho phép định dạng .jpg, .jpeg, .gif và kích thước tối đa tệp tin là 5MB.</p>
 												<br>
-											</div>
-											
+											</div>				
 										<div class="col-lg-12">
 											<button style="background-color: #e44d3a" type="submit" name="submit" class="btn btn-primary">Cập nhật </button>
 											<button style="background-color: #e44d3a;width: 80px;margin-left: 400px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -449,7 +393,6 @@ ob_start();
 		</main>							
 	</div><!--theme-layout end-->
 
-
 	
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
@@ -483,5 +426,3 @@ ob_start();
       })
 </script>
 	
-</body>
-</html>
