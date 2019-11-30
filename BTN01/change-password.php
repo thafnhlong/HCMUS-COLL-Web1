@@ -165,7 +165,7 @@ ob_start();
 										</div>
 									</form>
 								</div>
-								<!--sign_in_sec end-->
+								<!--sign_in_sec end -->
 							</div>
 						</div>
 						<!--login-sec end-->
