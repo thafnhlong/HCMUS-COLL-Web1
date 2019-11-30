@@ -23,8 +23,8 @@ include 'header-first.php';
 						<div class="user-account-settingss" id="users">
 							<h3>Setting</h3>
 							<ul class="us-links">
-								<li><a href="#" title="">Update Profile</a></li>
-								<li><a href="#" title="">Change Password</a></li>
+								<li><a href="update-account.php" title="">Update Profile</a></li>
+								<li><a href="change-account.php" title="">Change Password</a></li>
 							</ul>
 							<h3 class="tc"><a href="logout.php" title="">Logout</a></h3>
 						</div><!--user-account-settingss end-->
@@ -38,7 +38,7 @@ include 'header-first.php';
 								</a>
 							</li><!--home end-->
 							<li>
-								<a href="profiles.html" title="">
+								<a href="my-account.php" title="">
 									<span><img src="images/icon4.png" alt=""></span>
 									Profiles
 								</a>

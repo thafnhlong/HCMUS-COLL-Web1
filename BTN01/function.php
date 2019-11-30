@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
-    
+
 /*pdo*/
 $pdo = new PDO($DB_TYPE.'='.$DB_HOST.';'.$DB_NAME_TYPE.'='.$DB_NAME.$DB_OPTIONAL,$DB_USER,$DB_PASSWORD);
 /* tim user = email */
@@ -54,10 +54,10 @@ function activateUser($code) {
 /* Send mail */
 function sendEmail($to, $name, $subject, $content) {
     global $EMAIL_FROM, $EMAIL_NAME, $EMAIL_PASSWORD;
-  
+
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
-  
+
     //Server settings
     $mail->isSMTP();                                            // Send using SMTP
     $mail->CharSet    = 'UTF-8';
@@ -67,17 +67,17 @@ function sendEmail($to, $name, $subject, $content) {
     $mail->Password   = $EMAIL_PASSWORD;                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
-  
+
     //Recipients
     $mail->setFrom($EMAIL_FROM, $EMAIL_NAME);
     $mail->addAddress($to, $name);     // Add a recipient
-  
+
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject;
     $mail->Body    = $content;
     // $mail->AltBody = $content;
-  
+
     $mail->send();
 }
 
@@ -95,7 +95,7 @@ function generateRandomString($length = 10) {
 /*Newfeed*/
 function userPost($user,$content,$image)
 {
-    global $pdo;   
+    global $pdo;
     $stmt = $pdo->prepare("INSERT post(Content,UserID,IMGContent) values (?,?,?)");
     $stmt->execute(array($content,$user['ID'], $image) );
     return $pdo->lastInsertId();
@@ -173,7 +173,7 @@ function uploadFileToSql($temp):void
 /* kiểm tra xem email đã tồn tại chưa */
 function checkEmail($Email)
 {
-    global $pdo; 
+    global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM user WHERE Email=?");
     $stmt->execute(array($Email));
     $tmp=$stmt->fetch(PDO::FETCH_ASSOC);
