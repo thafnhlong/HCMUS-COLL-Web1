@@ -71,7 +71,7 @@ ob_start();
                             </div>
                             <span style="color:green"> Vui lòng vào email để kích hoạt tài khoản</span>
                             <div class="col-lg-12 no-pdd">
-                              <button type="submit" class="btn btn-primary">Get Started</button>
+                              <button type="submit" class="btn btn-primary">Đăng ký</button>
                             </div>
                           </div>
                         </form>
@@ -150,7 +150,7 @@ ob_start();
                           </div>
                           <span style="color:red"> Đăng ký thất bại</span>
                           <div class="col-lg-12 no-pdd">
-                            <button type="submit" class="btn btn-primary">Get Started</button>
+                            <button type="submit" class="btn btn-primary">Đăng ký</button>
                           </div>
                         </div>
                       </form>
@@ -231,7 +231,7 @@ ob_start();
                           </div>
 
                           <div class="col-lg-12 no-pdd">
-                            <button type="submit" class="btn btn-primary">Get Started</button>
+                            <button type="submit" class="btn btn-primary">Đăng ký</button>
                           </div>
                         </div>
                       </form>
