@@ -151,7 +151,7 @@ ob_start();
 													<img style="height:50px" src="images/defaultavt.png" alt="">
 <?php endif; ?>
 														<div class="usy-name">
-															<h3>John Doe</h3>
+															<h3><?php echo $currentUser['Name'] ?></h3>
 															<span><img src="images/clock.png" alt=""><?php echo $post['Time'] ?></span>
 														</div>
 													</div>
