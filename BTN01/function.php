@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
-    
+
 /*pdo*/
 $pdo = new PDO($DB_TYPE.'='.$DB_HOST.';'.$DB_NAME_TYPE.'='.$DB_NAME.$DB_OPTIONAL,$DB_USER,$DB_PASSWORD);
 /* tim user = email */
@@ -27,15 +27,15 @@ function findUserById($id) {
 }
 
 /* tao moi user */
-function createUser($displayName, $email, $password) {
+function createUser($displayName, $email, $password,$phonenumber,$address) {
     global $pdo;
     global $BASE_URL;
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
     $code = generateRandomString(16);
-    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, Image, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute(array($displayName, $email, $hashPassword, 0, $code,0,0,0));
+    $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, PhoneNumber, Address ) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
+    $stmt->execute(array($displayName, $email, $hashPassword, 0, $code,0,$phonenumber,$address));
     $id = $pdo->lastInsertId();
-    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
+    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là  <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
     return $id;
 }
 /* active user*/
@@ -54,10 +54,10 @@ function activateUser($code) {
 /* Send mail */
 function sendEmail($to, $name, $subject, $content) {
     global $EMAIL_FROM, $EMAIL_NAME, $EMAIL_PASSWORD;
-  
+
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
-  
+
     //Server settings
     $mail->isSMTP();                                            // Send using SMTP
     $mail->CharSet    = 'UTF-8';
@@ -67,17 +67,17 @@ function sendEmail($to, $name, $subject, $content) {
     $mail->Password   = $EMAIL_PASSWORD;                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
-  
+
     //Recipients
     $mail->setFrom($EMAIL_FROM, $EMAIL_NAME);
     $mail->addAddress($to, $name);     // Add a recipient
-  
+
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject;
     $mail->Body    = $content;
     // $mail->AltBody = $content;
-  
+
     $mail->send();
 }
 
@@ -95,7 +95,7 @@ function generateRandomString($length = 10) {
 /*Newfeed*/
 function userPost($user,$content,$image)
 {
-    global $pdo;   
+    global $pdo;
     $stmt = $pdo->prepare("INSERT post(Content,UserID,IMGContent) values (?,?,?)");
     $stmt->execute(array($content,$user['ID'], $image) );
     return $pdo->lastInsertId();
@@ -103,10 +103,10 @@ function userPost($user,$content,$image)
 function loadPost($page)
 {
     global $pdo;
-    global $numPostofPage;
+    global $numPostOfPage;
     $stmt = $pdo->prepare("SELECT p.Content,p.Time,p.ID,u.Name,u.ID uid FROM post p JOIN user u ON u.ID=p.UserID ORDER BY p.Time DESC LIMIT ?, ?");
-    $stmt->bindValue(1, $numPostofPage*($page-1), PDO::PARAM_INT);
-    $stmt->bindValue(2, $numPostofPage, PDO::PARAM_INT);
+    $stmt->bindValue(1, $numPostOfPage*($page-1), PDO::PARAM_INT);
+    $stmt->bindValue(2, $numPostOfPage, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -132,7 +132,7 @@ function getImagePost($id)
     $stmt = $pdo->prepare("SELECT IMGContent FROM post WHERE ID=?");
     $stmt->execute(array($id));
     $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return empty($image['IMGContent']) ? emptyImage() : $image['IMGContent'];
+    return $image['IMGContent'];
 }
 function getImageUser($id)
 {
@@ -140,13 +140,12 @@ function getImageUser($id)
     $stmt = $pdo->prepare("SELECT Image FROM user WHERE ID=?");
     $stmt->execute(array($id));
     $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return empty($image['Image']) ? emptyImage() : $image['Image'];
+    return $image['Image'];
 }
 function emptyImage()
 {
     return base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY3growIAAycBLhVrvukAAAAASUVORK5CYII=");
 }
-
 /* cập nhật họ tên số điện thoại */
 function updateProfile($name,$phone,$id)
 {
@@ -174,7 +173,7 @@ function uploadFileToSql($temp):void
 /* kiểm tra xem email đã tồn tại chưa */
 function checkEmail($Email)
 {
-    global $pdo; 
+    global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM user WHERE Email=?");
     $stmt->execute(array($Email));
     $tmp=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -287,4 +286,41 @@ function updateAddress($temp,$id)
     $stmt = $pdo->prepare("UPDATE user SET Address=? where ID=?");
     $stmt->execute(array($temp,$id));
     $pdo->lastInsertId();
+}
+
+/* cập nhật ảnh đại diện */
+function UpdateAvatar($id)
+{
+    $image=file_get_contents($_FILES['filesAvt']['tmp_name']);
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Image=? WHERE ID=?");
+    $stmt->execute(array($image,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật công việc */
+function updateJob($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Job=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật tên */
+function updateName($temp,$id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE user SET Name=? where ID=?");
+    $stmt->execute(array($temp,$id));
+    $pdo->lastInsertId();
+}
+
+/* cập nhật mật khẩu mới */
+function updatePassByAccount($pass,$id)
+{
+    global $pdo;
+    $haspass=password_hash($pass,PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("UPDATE user SET Pass=? where ID=?");
+    return $stmt->execute(array($haspass,$id));
 }

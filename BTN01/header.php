@@ -1,56 +1,52 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php
+include 'header-first.php';
+?>
+<body>	
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/1e69072511.js" crossorigin="anonymous"></script>
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
-    <link rel="stylesheet" href="App/modals.css">
-    <title>BTN01-SBTC</title>
-  </head>
-  <?php //require_once 'css-header.php'; ?>
-  <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.php">Lập trình Web 1</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item <?php echo $CurrentPage == 'index' ? 'active' : '' ?>">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <?php if ($currentUser): ?>
-            <li class="nav-item <?php echo $CurrentPage == 'create-profile' ? 'active' : '' ?>">
-              <a class="nav-link" href="create-profile.php">Cập nhật thông tin cá nhân</a>
-            </li>
-            <li class="nav-item <?php echo $CurrentPage == 'profile' ? 'active' : '' ?>">
-              <a class="nav-link" href="profile.php">Trang cá nhân</a>
-            </li>
-            <?php endif; ?>
-            <?php if (!$currentUser): ?>
-            <li class="nav-item <?php echo $CurrentPage == 'register' ? 'active' : '' ?>">
-              <a class="nav-link" href="register.php">Đăng ký</a>
-            </li>
-            <li class="nav-item <?php echo $CurrentPage == 'login' ? 'active' : '' ?>">
-              <a class="nav-link" href="login.php">Đăng nhập</a>
-            </li>
-            <li class="nav-item <?php echo $CurrentPage == 'forgot_password' ? 'active' : '' ?>">
-              <a class="nav-link" href="forgot_password.php">Quên mật khẩu</a>
-            </li>
-            <?php else: ?>
-            <li class="nav-item <?php echo $CurrentPage == 'change-password' ? 'active' : '' ?>">
-              <a class="nav-link" href="change-password.php">Đổi mật khẩu</a>
-            </li>
-            <li class="nav-item <?php echo $CurrentPage == 'logout' ? 'active' : '' ?>">
-              <a class="nav-link" href="logout.php">Đăng xuất<?php echo $currentUser ? ' (' . $currentUser['Name'] . ') ' : '' ?></a>
-            </li>
-            <?php endif; ?>
-        </div>
-      </nav>
+	<div class="wrapper">	
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<div class="logo">
+						<a href="index.php" title=""><img src="images/logo.png" alt=""></a>
+					</div><!--logo end-->
+					<div class="search-bar" style="visibility: hidden;"></div><!--search-bar end-->
+					<div class="menu-btn">
+						<a href="#" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>" alt="">
+							<a href="#" title=""><?php echo $currentUser['Name']?></a></a>
+							<i class="la la-sort-down"></i>
+						</div><!--user-info end-->
+						<div class="user-account-settingss" id="users">
+							<h3>Setting</h3>
+							<ul class="us-links">
+								<li><a href="update-profile.php" title="">Update Profile</a></li>
+								<li><a href="change-password.php" title="">Change Password</a></li>
+							</ul>
+							<h3 class="tc"><a href="logout.php" title="">Logout</a></h3>
+						</div><!--user-account-settingss end-->
+					</div><!--user-account end-->
+                    <nav>
+						<ul>
+							<li>
+								<a href="index.php" title="">
+									<span><img src="images/icon1.png" alt=""></span>
+									Home
+								</a>
+							</li><!--home end-->
+							<li>
+								<a href="my-account.php" title="">
+									<span><img src="images/icon4.png" alt=""></span>
+									Profiles
+								</a>
+							</li><!--profile end-->
+						</ul>
+					</nav><!--nav end-->
+					
+				</div><!--header-data end-->
+			</div>
+		</header><!--header end-->	
+

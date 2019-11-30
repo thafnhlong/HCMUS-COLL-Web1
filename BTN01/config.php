@@ -11,9 +11,6 @@ $DB_USER     = 'jySgavqbrA';
 $DB_PASSWORD = 'sIUeCdGFlA';
 
 // Email config
-//$EMAIL_NAME     = 'noreply';
-//$EMAIL_FROM     = 'bao01664165857@gmail.com';
-//$EMAIL_PASSWORD = '01664165857Bao';
 $EMAIL_FROM     = 'thanhla999hh@gmail.com';
 $EMAIL_NAME     = 'NoReply';
 $EMAIL_PASSWORD = '1234qQ4321';
@@ -22,4 +19,4 @@ $EMAIL_PASSWORD = '1234qQ4321';
 $BASE_URL = 'http://localhost:8080/LTWEB1/BTN01';
 
 // Pagination
-$numPostofPage = 10;
+$numPostOfPage = 10;

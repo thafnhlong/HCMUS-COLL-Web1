@@ -25,14 +25,15 @@ CREATE TABLE `user` (
   `Status` int(11) NOT NULL DEFAULT '0',
   `Code` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `CodeForgot` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Image` blob NOT NULL,
+  `Image` blob,
   `PhoneNumber` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Chưa cập nhật',
   `CoverImage` blob,
   `AboutMe` varchar(255) DEFAULT 'Chưa cập nhật',
   `FaceBook` varchar(255) DEFAULT 'Chưa cập nhật',
   `Address` varchar(255) DEFAULT 'Chưa cập nhật',
+  `Job` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Chưa cập nhật',
   PRIMARY KEY (`ID`,`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2019-11-25 10:25:09
+-- 2019-11-30 06:26:03

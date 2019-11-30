@@ -1,4 +1,3 @@
-<!-- Footer -->
-<?php //require_once 'css-footer.php'; ?>
-  </body>
-</html>
+    </div><!--theme-layout end-->
+<?php
+include 'footer-first.php';
