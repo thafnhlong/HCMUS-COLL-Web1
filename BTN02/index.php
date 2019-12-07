@@ -20,21 +20,17 @@ if (isset($_POST['submit']) )
             {
                 if (!checkImageType($fileupload['type']))
                     $error =1;
-                else if ($fileupload['size'] > 50*1024)
+                else if ($fileupload['size'] > 5*1024*1024)
                     $error =2;
             }
             else $haveimage = false;
-        }
-        $image = "";
-        
+        }       
         if (!$error){
         
             $user = $currentUser;
-            
+            $id = userPost($user,$content);
             if ($haveimage)
-                $image = file_get_contents($fileupload['tmp_name']);
-            
-            userPost($user,$content,$image);
+                move_uploaded_file($_FILES['file']['tmp_name'], 'images/post/'.$id.'.jpg');
         }
     } else 
         $error = -1;
@@ -151,7 +147,14 @@ foreach(loadPost($pagenum) as $post):
 											<div class="job_descp">
 												<h3>Title</h3>
 												<p><?php echo $post['Content']?></p>
-                                                <img style="margin: 0 2px 2px 0" src="getImage.php?type=post&id=<?php echo $post['ID']?>" />
+<?php
+    $imagePostResult = getImage($post['ID']);
+    if ($imagePostResult[0]):
+?>                                                
+                                                <img style="margin: 0 2px 2px 0" src="<?php echo $imagePostResult[1]?>" />
+<?php 
+    endif;
+?>
 											</div>
 										</div><!--post-bar end-->
 <?php
@@ -257,7 +260,7 @@ endif;
                                     <input type="file" name="file" id="file" onchange="if (this.files.length > 0) document.getElementById('OpenImgUpload').getElementsByTagName('span')[0].innerHTML = this.files[0].name"
                                         onclick="document.getElementById('OpenImgUpload').getElementsByTagName('span')[0].innerHTML = 'Image size must be < 50kb'">
                                     <label style="margin: 20px 0 0 20px;" for="file"><i class="fas fa-camera"></i></label>												
-                                    <span>Image size must be < 50kb</span>
+                                    <span>Image size must be <= 5MB, allow JPG,PNG,GIF</span>
                                 </div>
 							</div>
 							<div class="col-lg-12">

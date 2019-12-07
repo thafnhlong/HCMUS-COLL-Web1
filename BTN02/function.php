@@ -93,11 +93,11 @@ function generateRandomString($length = 10) {
 }
 
 /*Newfeed*/
-function userPost($user,$content,$image)
+function userPost($user,$content)
 {
     global $pdo;
-    $stmt = $pdo->prepare("INSERT post(Content,UserID,IMGContent) values (?,?,?)");
-    $stmt->execute(array($content,$user['ID'], $image) );
+    $stmt = $pdo->prepare("INSERT post(Content,UserID) values (?,?)");
+    $stmt->execute(array($content,$user['ID']) );
     return $pdo->lastInsertId();
 }
 function loadPost($page)
@@ -126,13 +126,26 @@ function checkImageType($type)
         return false;
     return true;
 }
-function getImagePost($id)
+function getImage($id,$type=2)
 {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT IMGContent FROM post WHERE ID=?");
-    $stmt->execute(array($id));
-    $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $image['IMGContent'];
+    $src = "./images/";
+    $alternative = "";
+    switch($type)
+    {
+        case 0: // avatar
+            $src .= "avatar/";
+            break;
+        case 1: //cover
+            $src .= "cover/";
+            break;
+        default: //image
+            $src .= "post/";
+            break;
+    }
+    $srcreal = $src. $id .'.jpg';
+    if (file_exists($srcreal))
+        return [true,$srcreal];
+    return [false,$src .'0.jpg'];
 }
 function getImageUser($id)
 {
