@@ -129,8 +129,15 @@ function sendRequest($id,$target)
 function deleteRequest($id,$target)
 {
     global $pdo;
-    $stmt = $pdo->prepare("DELETE friendship WHERE id=? and target=?");
+    $stmt = $pdo->prepare("DELETE FROM friendship WHERE id=? and target=?");
     $stmt->execute(array($id,$target) );
+}
+function isRequest($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM friendship WHERE id=? and target=?");
+    $stmt->execute(array($id,$target) );
+    return $stmt->fetch(PDO::FETCH_ASSOC) != null;
 }
 /*util*/
 function checkImageType($type)
