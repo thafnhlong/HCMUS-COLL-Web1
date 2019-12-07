@@ -118,6 +118,20 @@ function getCountPost()
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+/*Frendship*/
+function sendRequest($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT friendship(id,target) values (?,?)");
+    $stmt->execute(array($id,$target) );
+    return $pdo->lastInsertId();
+}
+function deleteRequest($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("DELETE friendship WHERE id=? and target=?");
+    $stmt->execute(array($id,$target) );
+}
 /*util*/
 function checkImageType($type)
 {
