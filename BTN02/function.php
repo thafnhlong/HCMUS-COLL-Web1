@@ -312,3 +312,11 @@ function getlistsendaddFriend($target)
     $stmt->execute(array($target));
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+/* lấy list user */
+function getUsers($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE ID!=?");
+    $stmt->execute(array($id));
+    return $stmt;
+}
