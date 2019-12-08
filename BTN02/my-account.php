@@ -128,7 +128,7 @@ ob_start();
 												<img src="<?php echo $imageAVTadd[1]?>" alt="" style="width:30px">
 												<div class="sgt-text">
 													<h4 class="xd-list"><?php echo $lissaddfr['Name'] ?></h4>
-													<span><?php echo $lissaddfr['Job'] ?></span>	
+													<span class="xd-list"><?php echo $lissaddfr['Job'] ?></span>	
 												</div>
 													<a style="float: right" title="Đồng ý kết bạn" href="sendRequest.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont" ><i style="width: 25px; height: 30px;" class="la la-plus"></i></a>
 													<a style="float: right" title="Xóa lời mời" href="deleteFriend.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont"><i style="color:red;width: 25px; height: 30px;" class="fas fa-times "></i></a>																								
