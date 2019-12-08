@@ -127,7 +127,7 @@ ob_start();
 <?php 	$imageAVTadd = getImage($lissaddfr['ID'],0); ?>
 												<img src="<?php echo $imageAVTadd[1]?>" alt="" style="width:30px">
 												<div class="sgt-text">
-													<h4 class="xd-list"><?php echo $lissaddfr['Name'] ?></h4>
+													<h4 class="xd-list" ><a href="profile.php?id=<?php echo $lissaddfr['ID']?>"><?php echo $lissaddfr['Name'] ?></a></h4>
 													<span class="xd-list"><?php echo $lissaddfr['Job'] ?></span>	
 												</div>
 													<a style="float: right" title="Đồng ý kết bạn" href="sendRequest.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont" ><i style="width: 25px; height: 30px;" class="la la-plus"></i></a>
@@ -252,7 +252,7 @@ endif;
 											<div class="suggestion-usd">
 												<img width="35px" height="35px" src="<?php echo getImage($friend['ID'],0)[1]?>" alt="">
 												<div class="sgt-text">
-													<h4 class="xd-list"><?php echo $friend['Name']?></h4>
+                                                    <h4 class="xd-list" ><a href="profile.php?id=<?php echo $lissaddfr['ID']?>"><?php echo $friend['Name'] ?></a></h4>
 													<span class="xd-list"><?php echo $friend['Job']?></span>
 												</div>
 												<span onclick="window.location='deleteFriend.php?id=<?php echo $friend['ID']?>'"><i class="la la-times"></i></span>
