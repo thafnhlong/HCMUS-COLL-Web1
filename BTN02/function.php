@@ -303,3 +303,12 @@ function updatePassByAccount($pass,$id)
     $stmt = $pdo->prepare("UPDATE user SET Pass=? where ID=?");
     return $stmt->execute(array($haspass,$id));
 }
+
+/* lấy danh sách đã gửi lời mời kết bạn */
+function getlistsendaddFriend($target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM user JOIN friendship on user.ID=friendship.ID WHERE Target=?");
+    $stmt->execute(array($target));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

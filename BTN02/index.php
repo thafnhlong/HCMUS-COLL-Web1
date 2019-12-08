@@ -72,24 +72,31 @@ include "header.php";
 											</li>
 										</ul>
 									</div><!--user-data end-->
+
+									<!-- list friend -->
+								
 									<div class="suggestions full-width">
 										<div class="sd-title">
 											<h3>Suggestions</h3>
 											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
+										</div><!--sd-title end-->										
 										<div class="suggestions-list">
-											<!--
-                                            <div class="suggestion-usd">
-												<img src="images/resources/s1.png" alt="">
+<?php foreach(getlistsendaddFriend($currentUser['ID']) as $lissaddfr):  ?>											
+											<div class="suggestion-usd" style="padding-right: 0">
+<?php 	$imageAVTadd = getImage($lissaddfr['ID'],0); ?>
+												<img src="<?php echo $imageAVTadd[1]?>" alt="" style="width:30px">
 												<div class="sgt-text">
-													<h4>Jessica William</h4>
-													<span>Graphic Designer</span>
+													<h4><?php echo $lissaddfr['Name'] ?></h4>
+													<span>Nghề nghiệp: <?php echo $lissaddfr['Job'] ?></span>	
 												</div>
-												<span><i class="la la-plus"></i></span>
+													<a style="float: right" title="Đồng ý kết bạn" href="sendRequest.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont" ><i style="width: 25px; height: 30px;" class="la la-plus"></i></a>
+													<a style="float: right" title="Xóa lời mời" href="deleteFriend.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont"><i style="color:red;width: 25px; height: 30px;" class="fas fa-times "></i></a>																								
 											</div>
-											-->
-                                        </div><!--suggestions-list end-->
+<?php endforeach; ?>																			
+										</div><!--suggestions-list end-->
 									</div><!--suggestions end-->
+
+
 									<div class="tags-sec full-width">
 										<ul>
                                             <!--
