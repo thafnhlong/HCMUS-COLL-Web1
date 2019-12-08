@@ -14,13 +14,15 @@ ob_start();
 
 <!-- cật nhật ảnh bìa -->
 <?php if( isset($_POST['submit'])): ?>
-<?php saveCoverImage($currentUser['ID']); ?>
+<?php //saveCoverImage($currentUser['ID']); ?>
+<?php move_uploaded_file($_FILES['fileAvatar']['tmp_name'], 'images/cover/'.$currentUser['ID'].'.jpg');  ?>
 <?php header('Location: my-account.php'); ?>
 <?php endif; ?>
 
 <!-- cật nhật ảnh đại diện -->
 <?php if( isset($_POST['submitAvt'])): ?>
-<?php UpdateAvatar($currentUser['ID']); ?>
+<?php //UpdateAvatar($currentUser['ID']); ?>
+<?php move_uploaded_file($_FILES['filesAvt']['tmp_name'], 'images/avatar/'.$currentUser['ID'].'.jpg');  ?>
 <?php header('Location: my-account.php'); ?>
 <?php endif; ?>
 
@@ -56,11 +58,11 @@ ob_start();
 	<div class="wrapper">
 		<section class="cover-sec">
 			<!--<img src="images/resources/cover-img.jpg" alt="">-->
-<?php if(isset($currentUser['CoverImage'])): ?>			
-			<img style="height: 380px" src="getImage.php?type=coverimage&id=<?php echo $currentUser['ID']?>"  alt="">
-<?php else:?>
-			<img style="height: 380px" src="images/resources/cover-img.jpg" alt="">
-<?php endif ?>
+<?php
+	$imageCoverAvatar = getImage($currentUser['ID'],1);
+?>
+			<img style="height: 380px"  src="<?php echo $imageCoverAvatar[1]?>" />
+
 			<div class="add-pic-box">
 				<div class="container">
 					<div class="row no-gutters">
@@ -83,11 +85,11 @@ ob_start();
 								<div class="main-left-sidebar">
 									<div class="user_profile">
 										<div class="user-pro-img">
-<?php if(isset($currentUser['Image'])): ?>	
-											<img style="height: 200px" src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>" alt="">
-<?php else: ?>
-											<img style="height: 200px" src="images/defaultavt.png" alt="">
-<?php endif; ?>
+<?php 
+	$imageAvatar = getImage($currentUser['ID'],0);
+?>
+											<img style="height: 200px" src="<?php echo $imageAvatar[1]?>" />	
+
 											<div class="add-dp" id="OpenImgUpload">											
 												<label data-toggle="modal" data-target="#ModalUpdateAvatar"  for="file"><i style="cursor:pointer" class="fas fa-camera"></i></label>												
 											</div>
@@ -145,11 +147,10 @@ ob_start();
 											<div class="post-bar">																								
 												<div class="post_topbar">
 													<div class="usy-dt">
-<?php if(isset($currentUser['Image'])): ?>																		
-													<img style="height:50px" src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>">
-<?php else:?>
-													<img style="height:50px" src="images/defaultavt.png" alt="">
-<?php endif; ?>
+<?php 
+	$imageAvatar = getImage($currentUser['ID'],0);
+?>
+														<img style="height:50px" src="<?php echo $imageAvatar[1]?>" />
 														<div class="usy-name">
 															<h3><?php echo $currentUser['Name'] ?></h3>
 															<span><img src="images/clock.png" alt=""><?php echo $post['Time'] ?></span>
@@ -167,9 +168,14 @@ ob_start();
 												</div>											
 												<div class="job_descp">																	
 													<p><?php echo $post['Content'] ?></p><br>
-													<?php if($post['IMGContent']!=null): ?>
-														<img style="max-width: 500px;max-height: 200px;" src="getImage.php?type=post&id=<?php echo $post['ID']?>">
-													<?php endif; ?>
+<?php
+	$imagePost = getImage($post['ID']);
+	if ($imagePost[0]):
+?>
+												<img style="max-width: 500px;max-height: 200px;"  src="<?php echo $imagePost[1]?>"  />
+<?php 
+endif;
+?>
 												</div>																																																																	
 											</div><!--post-bar end-->											
 										</div><!--posts-section end-->
