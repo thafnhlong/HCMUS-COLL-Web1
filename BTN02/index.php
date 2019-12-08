@@ -50,7 +50,7 @@ include "header.php";
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<img src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>" alt="">
+													<img style="border-radius: 100%;" src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -107,7 +107,7 @@ include "header.php";
 								<div class="main-ws-sec">
 									<div class="post-topbar">
 										<div class="user-picy">
-											<img src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>" alt="">
+											<img src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
 										</div>
 										<div class="post-st">
 											<ul>
@@ -132,7 +132,7 @@ foreach(loadPost($pagenum) as $post):
 										<div class="post-bar">
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img style="width: 50px;height: 50px;" src="getImage.php?type=avatar&id=<?php echo $post['uid']?>" alt="">
+													<img style="width: 50px;height: 50px;" src="<?php echo getImage($post['uid'],0)[1]?>" alt="">
 													<div class="usy-name">
 														<h3><?php echo $post['Name']?></h3>
 														<span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>

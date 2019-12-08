@@ -16,7 +16,7 @@ include 'header-first.php';
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="getImage.php?type=avatar&id=<?php echo $currentUser['ID']?>" alt="">
+							<img src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
 							<a href="#" title=""><?php echo $currentUser['Name']?></a></a>
 							<i class="la la-sort-down"></i>
 						</div><!--user-info end-->
@@ -37,6 +37,12 @@ include 'header-first.php';
 									Home
 								</a>
 							</li><!--home end-->
+                            <li>
+								<a href="profiles.php" title="">
+									<span><img src="images/icon2.png" alt=""></span>
+									Members
+								</a>
+							</li><!--profiles end-->
 							<li>
 								<a href="my-account.php" title="">
 									<span><img src="images/icon4.png" alt=""></span>

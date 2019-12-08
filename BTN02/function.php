@@ -168,40 +168,13 @@ function getImage($id,$type=2)
         return [true,$srcreal];
     return [false,$src .'0.jpg'];
 }
-function getImageUser($id)
-{
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT Image FROM user WHERE ID=?");
-    $stmt->execute(array($id));
-    $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $image['Image'];
-}
-function emptyImage()
-{
-    return base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY3growIAAycBLhVrvukAAAAASUVORK5CYII=");
-}
+
 /* cập nhật họ tên số điện thoại */
 function updateProfile($name,$phone,$id)
 {
     global $pdo;
     $stmt = $pdo->prepare("UPDATE user SET Name= ?,PhoneNumber=? where ID=?");
     return $stmt->execute(array($name,$phone,$id));
-}
-
-/* thực hiện truy vấn lưu vào Image */
-function upIMGtoSql($img,$id)
-{
-    global $pdo;
-    $stmt = $pdo->prepare("UPDATE user SET Image=? WHERE ID=?");
-    $stmt->execute(array($img,$id));
-    $pdo->lastInsertId();
-}
-
-/* lưu ảnh vào database */
-function uploadFileToSql($temp):void
-{
-    $image=file_get_contents($_FILES['file']['tmp_name']);
-    upIMGtoSql($image,$temp);
 }
 
 /* kiểm tra xem email đã tồn tại chưa */
@@ -259,24 +232,6 @@ function GetStatusByUserID($id)
     $stmt->execute(array($id));
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-/* Thêm ảnh bìa */
-function saveCoverImage($id)
-{
-    $image=file_get_contents($_FILES['fileAvatar']['tmp_name']);
-    global $pdo;
-    $stmt = $pdo->prepare("UPDATE user SET CoverImage=? WHERE ID=?");
-    $stmt->execute(array($image,$id));
-    $pdo->lastInsertId();
-}
-/* get ảnh bìa */
-function getCoverImage($id)
-{
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT CoverImage FROM user WHERE ID=?");
-    $stmt->execute(array($id));
-    $image = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $image['CoverImage'];
-}
 
 /* update mô tả bản thân */
 function updateAboutMe($temp,$id)
@@ -319,16 +274,6 @@ function updateAddress($temp,$id)
     global $pdo;
     $stmt = $pdo->prepare("UPDATE user SET Address=? where ID=?");
     $stmt->execute(array($temp,$id));
-    $pdo->lastInsertId();
-}
-
-/* cập nhật ảnh đại diện */
-function UpdateAvatar($id)
-{
-    $image=file_get_contents($_FILES['filesAvt']['tmp_name']);
-    global $pdo;
-    $stmt = $pdo->prepare("UPDATE user SET Image=? WHERE ID=?");
-    $stmt->execute(array($image,$id));
     $pdo->lastInsertId();
 }
 

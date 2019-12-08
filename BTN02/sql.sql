@@ -5,6 +5,14 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `friendship`;
+CREATE TABLE `friendship` (
+  `ID` int(10) DEFAULT NULL,
+  `Target` int(10) DEFAULT NULL,
+  `CreateAt` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,10 +32,7 @@ CREATE TABLE `user` (
   `Status` int(11) NOT NULL DEFAULT '0',
   `Code` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `CodeForgot` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Image` blob,
   `PhoneNumber` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Chưa cập nhật',
-  `CoverImage` blob,
-  `AboutMe` varchar(255) DEFAULT 'Chưa cập nhật',
   `FaceBook` varchar(255) DEFAULT 'Chưa cập nhật',
   `Address` varchar(255) DEFAULT 'Chưa cập nhật',
   `Job` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Chưa cập nhật',
@@ -35,4 +40,4 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2019-12-07 11:14:57
+-- 2019-12-08 09:20:48

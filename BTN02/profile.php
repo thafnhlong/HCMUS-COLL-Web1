@@ -38,7 +38,7 @@ include 'header.php';
 								<div class="main-left-sidebar">
 									<div class="user_profile">
 										<div class="user-pro-img">
-											<img width="180px" height="180px" src="getImage.php?type=avatar&id=<?php echo $profile['ID']?>" alt="">
+											<img width="180px" height="180px" src="<?php echo getImage($profile['ID'],0)[1]?>" alt="">
 										</div><!--user-pro-img end-->
 										<div class="user_pro_status">
 											<ul class="flw-hr">
@@ -51,7 +51,7 @@ if ($me2you && $you2me){
     $valueAnchor = "Xóa bạn";
 } elseif ($you2me)
 {
-    $src = "deleteRequest.php?id={$profile['ID']}";
+    $src = "deleteFriend.php?id={$profile['ID']}";
     $valueAnchor = "Hủy";
     
 ?>
@@ -119,7 +119,7 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                             <div class="post-bar">
                                                 <div class="post_topbar">
                                                     <div class="usy-dt">
-                                                        <img style="width: 50px;height: 50px;" src="getImage.php?type=avatar&id=<?php echo $profile['ID']?>" alt="">
+                                                        <img style="width: 50px;height: 50px;" src="<?php echo getImage($profile['ID'],0)[1]?>" alt="">
                                                         <div class="usy-name">
                                                             <h3><?php echo $profile['Name']?></h3>
                                                             <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
