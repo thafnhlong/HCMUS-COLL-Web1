@@ -25,9 +25,8 @@ if (empty($_GET['id']))
 include 'header.php'; 
 ?>
 		<section class="cover-sec">
-			<img src="images/resources/cover-img.jpg" alt="">
+			<img style="max-height:337px;" src="<?php echo getImage($profile['ID'],1)[1] ?>" alt="">
 		</section>
-
 
 		<main>
 			<div class="main-section">

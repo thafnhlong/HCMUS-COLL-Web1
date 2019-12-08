@@ -252,7 +252,7 @@ endif;
 											<div class="suggestion-usd">
 												<img width="35px" height="35px" src="<?php echo getImage($friend['ID'],0)[1]?>" alt="">
 												<div class="sgt-text">
-                                                    <h4 class="xd-list" ><a href="profile.php?id=<?php echo $lissaddfr['ID']?>"><?php echo $friend['Name'] ?></a></h4>
+                                                    <h4 class="xd-list" ><a href="profile.php?id=<?php echo $friend['ID']?>"><?php echo $friend['Name'] ?></a></h4>
 													<span class="xd-list"><?php echo $friend['Job']?></span>
 												</div>
 												<span onclick="window.location='deleteFriend.php?id=<?php echo $friend['ID']?>'"><i class="la la-times"></i></span>

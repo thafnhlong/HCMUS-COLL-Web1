@@ -315,7 +315,11 @@ function updatePassByAccount($pass,$id)
 function getlistsendaddFriend($target)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM user JOIN friendship on user.ID=friendship.ID WHERE Target=?");
+    $stmt = $pdo->prepare("
+    select u.* from friendship f1 join user u on f1.id = u.id
+    where f1.target = ? 
+    and not exists ( select * from friendship f2 where f2.id = f1.target and f2.target = f1.id)
+    ");
     $stmt->execute(array($target));
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
