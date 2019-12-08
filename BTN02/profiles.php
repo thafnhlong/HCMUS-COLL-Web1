@@ -11,11 +11,6 @@ ob_start();
     }
 ?>
 
-
-
-	
-
-	<div class="wrapper">
 		<section class="companies-info">
 			<div class="container">
 				<div class="company-title">
@@ -63,7 +58,7 @@ if ($me2you && $you2me){
                                                 </li>
 									</ul>
 								</div>
-								<a href="profile?id=<?php echo $u['ID'];?>.php" title="" class="view-more-pro">View Profile</a>
+								<a href="profile.php?id=<?php echo $u['ID'];?>" title="" class="view-more-pro">View Profile</a>
 							</div><!--company_profile_info end-->
 						</div>
 <?php } ?>
@@ -73,8 +68,6 @@ if ($me2you && $you2me){
 			</div>
 		</section><!--companies-info end-->
 
-
-	</div><!--theme-layout end-->
 
 <?php 
 include 'footer.php'; 
