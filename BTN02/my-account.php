@@ -184,7 +184,7 @@ ob_start();
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 														<ul class="ed-options">
-															<li><a data-toggle="modal" data-target="#ModalEditPosts" style="cursor: pointer" >Edit Post</a></li>
+															<li><a data-toggle="modal"  style="cursor: pointer" >Edit Post</a></li>
 															<li><a href="#" title="">Remove</a></li>															
 														</ul>
 													</div>
