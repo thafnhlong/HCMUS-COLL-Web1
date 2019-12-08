@@ -5,3 +5,7 @@
 !.vscode/extensions.json
 *.code-workspace
 vendor/*
+
+images/**
+
+!images/*/0.jpg

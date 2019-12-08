@@ -139,6 +139,13 @@ function isRequest($id,$target)
     $stmt->execute(array($id,$target) );
     return $stmt->fetch(PDO::FETCH_ASSOC) != null;
 }
+function getFriends($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("select u.* from friendship f1, friendship f2 JOIN user u ON u.id = f2.id where f1.id = f2.target and f1.target = f2.id and f1.id = ?");
+    $stmt->execute(array($id) );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 /*util*/
 function checkImageType($type)
 {

@@ -216,6 +216,29 @@ endif;
 										</div><!--pf-gallery end-->
 									</div><!--widget-portfolio end-->
 								</div><!-- end profile -->
+                                <div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>Friends</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+<?php
+    foreach(getFriends($currentUser['ID']) as $friend):
+?>
+											<div class="suggestion-usd">
+												<img width="35px" height="35px" src="<?php echo getImage($friend['ID'],0)[1]?>" alt="">
+												<div class="sgt-text">
+													<h4 class="xd-list"><?php echo $friend['Name']?></h4>
+													<span class="xd-list"><?php echo $friend['Job']?></span>
+												</div>
+												<span onclick="window.location='deleteFriend.php?id=<?php echo $friend['ID']?>'"><i class="la la-times"></i></span>
+											</div>
+<?php
+    endforeach;
+?>
+										</div><!--suggestions-list end-->
+									</div>
+                            </div>
 <!-- Open Modal CoverAvt -->
 <div class="modal fade" id="ModalUpdateCoverImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
