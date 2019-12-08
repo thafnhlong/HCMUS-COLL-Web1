@@ -115,6 +115,30 @@ ob_start();
 									</div>
 									<!--Open khung thông tin bạn bè-->
 									
+									<!--- list frien -->
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>Suggestions</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->										
+										<div class="suggestions-list">
+<?php foreach(getlistsendaddFriend($currentUser['ID']) as $lissaddfr):  ?>											
+											<div class="suggestion-usd" style="padding-right: 0">
+<?php 	$imageAVTadd = getImage($lissaddfr['ID'],0); ?>
+												<img src="<?php echo $imageAVTadd[1]?>" alt="" style="width:30px">
+												<div class="sgt-text">
+													<h4 class="xd-list"><?php echo $lissaddfr['Name'] ?></h4>
+													<span><?php echo $lissaddfr['Job'] ?></span>	
+												</div>
+													<a style="float: right" title="Đồng ý kết bạn" href="sendRequest.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont" ><i style="width: 25px; height: 30px;" class="la la-plus"></i></a>
+													<a style="float: right" title="Xóa lời mời" href="deleteFriend.php?id=<?php echo $lissaddfr['ID'] ?>"  cursor="pont"><i style="color:red;width: 25px; height: 30px;" class="fas fa-times "></i></a>																								
+											</div>
+<?php endforeach; ?>																			
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+
+
+
 									<!--End khung thông tin bạn bè-->
 								</div><!--main-left-sidebar end-->
 							</div>
@@ -160,7 +184,7 @@ ob_start();
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
 														<ul class="ed-options">
-															<li><a data-toggle="modal" data-target="#ModalEditPosts" style="cursor: pointer" >Edit Post</a></li>
+															<li><a data-toggle="modal"  style="cursor: pointer" >Edit Post</a></li>
 															<li><a href="#" title="">Remove</a></li>															
 														</ul>
 													</div>
