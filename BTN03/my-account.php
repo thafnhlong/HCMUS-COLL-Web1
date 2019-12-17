@@ -183,7 +183,7 @@ foreach(GetStatusByUserID($currentUser['ID']) as $post):
                                                         <div class="usy-dt">
                                                             <img style="width: 50px;height: 50px;" src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
                                                             <div class="usy-name">
-                                                                <h3><?php echo $currentUser['Name']?></h3>
+                                                                <h3><a href="profile.php?id=<?php echo $currentUser['ID']?>"><?php echo $currentUser['Name']?></a></h3>
                                                                 <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
                                                             </div>
                                                         </div>
@@ -194,7 +194,16 @@ foreach(GetStatusByUserID($currentUser['ID']) as $post):
                                                         </ul>
                                                     </div>
                                                     <div class="job_descp">
-                                                        <h3>Title</h3>
+
+<?php
+    if ($post['Privacy']==2)
+        $typeprivacy = "EveryOne";
+    elseif ($post['Privacy']==1)
+        $typeprivacy = "Friend";
+    else
+        $typeprivacy = "OnlyMe";
+?>                                                
+                                                        <h3><i class="fas fa-lock"></i> <?php echo $typeprivacy ?></h3>                                                        
                                                         <p><?php echo $post['Content']?></p>
 <?php
     $imagePostResult = getImage($post['ID']);

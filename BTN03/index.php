@@ -7,6 +7,8 @@ if(!$currentUser)
     die();
 }
 $error = 0;
+
+
 if (isset($_POST['submit']) )
 {
     if (!empty($_POST['content']))
@@ -26,9 +28,9 @@ if (isset($_POST['submit']) )
             else $haveimage = false;
         }       
         if (!$error){
-        
+			$pri = $_POST['privacy'];
             $user = $currentUser;
-            $id = userPost($user,$content);
+            $id = userPost($user,$content,$pri);
             if ($haveimage)
                 move_uploaded_file($_FILES['file']['tmp_name'], 'images/post/'.$id.'.jpg');
         }
@@ -126,7 +128,7 @@ include "header.php";
 
 									<div class="posts-section">
 <?php
-$countPost = getCountPost()['num'];
+$countPost = friendCountPost($currentUser['ID'])['num'];
 $countPage = (int)(($countPost-1) / $numPostOfPage+1);
 $pagenum = 1;
 if (!empty($_GET['num']))
@@ -134,9 +136,8 @@ if (!empty($_GET['num']))
     $num = $_GET['num'];    
     $pagenum = $num < 1 ? 1 : ($num > $countPage ? $countPage : $num);
 }
-
 $postdem = -1;
-foreach(loadPost($pagenum) as $post):
+foreach(friendPost($pagenum,$currentUser['ID']) as $post):
     $postdem++;
 ?>
                                         <div class="posty" style="margin-bottom: 25px;">
@@ -145,7 +146,7 @@ foreach(loadPost($pagenum) as $post):
                                                     <div class="usy-dt">
                                                         <img style="width: 50px;height: 50px;" src="<?php echo getImage($post['uid'],0)[1]?>" alt="">
                                                         <div class="usy-name">
-                                                            <h3><?php echo $post['Name']?></h3>
+                                                            <h3><a href="profile.php?id=<?php echo $post['uid']?>"><?php echo $post['Name']?></a></h3>
                                                             <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
                                                         </div>
                                                     </div>
@@ -155,8 +156,16 @@ foreach(loadPost($pagenum) as $post):
                                                         <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="job_descp">
-                                                    <h3>Title</h3>
+                                                <div class="job_descp">    
+<?php
+    if ($post['Privacy']==2)
+        $typeprivacy = "EveryOne";
+    elseif ($post['Privacy']==1)
+        $typeprivacy = "Friend";
+    else
+        $typeprivacy = "OnlyMe";
+?>                                                
+                                                    <h3><i class="fas fa-lock"></i> <?php echo $typeprivacy ?></h3>
                                                     <p><?php echo $post['Content']?></p>
 <?php
     $imagePostResult = getImage($post['ID']);
@@ -344,7 +353,15 @@ endif;
 					<form id='form1' action="index.php" method="post" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-lg-12">
-								<input disabled type="text" name="title" placeholder="Title">
+								<ul>
+									<p>Who will see this post?</p>
+                                    <ul></ul>
+									<select name="privacy">
+											<option value="0">Only Me</option>
+											<option value="1" selected="selected" >Friend</option>
+											<option value="2">EveryOne</option>
+									</select>
+								</ul>
 							</div>
 							<div class="col-lg-12">
 								<textarea name="content" name="description" placeholder="Description"></textarea>
@@ -358,9 +375,11 @@ endif;
                                 </div>
 							</div>
 							<div class="col-lg-12">
+								
 								<ul>
-                                    <input type="hidden" name="submit">
-									<li><button form='form1' class="active" type="submit" value="submit">Post</button></li>
+									<li>
+										<button form='form1' class="active" type="submit" name="submit">Post</button>
+									</li>
 								</ul>
 							</div>
 						</div>

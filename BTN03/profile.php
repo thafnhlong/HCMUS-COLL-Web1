@@ -108,14 +108,12 @@ if ($me2you && $you2me){
 										</div><!-- tab-feed end-->
 									</div><!--user-tab-sec end-->
 									<div class="product-feed-tab current" id="feed-dd">
-										<div class="posts-section">
-
-
-											
+										<div class="posts-section">									
 <?php
 $postdem  = -1;
 foreach(GetStatusByUserID($profile['ID']) as $post):
     $postdem ++;
+    if($post['Privacy'] == 2 || ($post['Privacy'] == 1 && $me2you && $you2me)):
 ?>
                                             <div class="posty" style="margin-bottom: 25px;">
                                             
@@ -124,7 +122,7 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                         <div class="usy-dt">
                                                             <img style="width: 50px;height: 50px;" src="<?php echo getImage($profile['ID'],0)[1]?>" alt="">
                                                             <div class="usy-name">
-                                                                <h3><?php echo $profile['Name']?></h3>
+                                                                <h3><a href="profile.php?id=<?php echo $profile['ID']?>"><?php echo $profile['Name']?></a></h3>
                                                                 <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
                                                             </div>
                                                         </div>
@@ -135,15 +133,23 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                         </ul>
                                                     </div>
                                                     <div class="job_descp">
-                                                        <h3>Title</h3>
+<?php
+    if ($post['Privacy']==2)
+        $typeprivacy = "EveryOne";
+    elseif ($post['Privacy']==1)
+        $typeprivacy = "Friend";
+    else
+        $typeprivacy = "OnlyMe";
+?>                                                
+                                                        <h3><i class="fas fa-lock"></i> <?php echo $typeprivacy ?></h3>
                                                         <p><?php echo $post['Content']?></p>
 <?php
-    $imagePostResult = getImage($post['ID']);
-    if ($imagePostResult[0]):
+        $imagePostResult = getImage($post['ID']);
+        if ($imagePostResult[0]):
 ?>                                                
                                                         <img style="margin: 0 2px 2px 0" src="<?php echo $imagePostResult[1]?>" />
 <?php 
-    endif;
+        endif;
 ?>
                                                     </div>
                                                     
@@ -151,32 +157,32 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                         <ul class="like-com">
                                                             <li>
 <?php
-    $likesnum = countLike($post['ID']);
+        $likesnum = countLike($post['ID']);
 
-    $prefix="";
-    if (isLike($currentUser['ID'],$post['ID'])){
-        $likecss = " style='color:blue;' ";
-        $likecontent = "UnLike";
-        $prefix = "un";
-    }
-    else{
-        $likecss = "";
-        $likecontent = "Like";
-    }
+        $prefix="";
+        if (isLike($currentUser['ID'],$post['ID'])){
+            $likecss = " style='color:blue;' ";
+            $likecontent = "UnLike";
+            $prefix = "un";
+        }
+        else{
+            $likecss = "";
+            $likecontent = "Like";
+        }
 ?>
                                                                 <a href="<?php echo $prefix?>like.php?postid=<?php echo $post['ID']?>" <?php echo $likecss?>><i class="fas fa-heart"></i> <?php echo $likecontent?></a>
 <?php
-    if ($likesnum>0):                                                            
+        if ($likesnum>0):                                                            
 ?>
                                                                 <img src="images/liked-img.png" alt="">
                                                                 <span><?php echo $likesnum?></span>
 <?php
-    endif;
+        endif;
 ?>
                                                             </li> 
                                                         </ul>
 <?php
-    $cmtnum = countComment($post['ID']);
+        $cmtnum = countComment($post['ID']);
 ?>                                                    
                                                         <a onclick="triggerComment(<?php echo $postdem ?>)" class="com"><i class="fas fa-comment-alt"></i> Comment <?php echo $cmtnum?></a>
                                                     </div>
@@ -187,12 +193,12 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                 
                                                 <div style="display:none" class="comment-section">
 <?php
-    if ($cmtnum > 0):
+        if ($cmtnum > 0):
 ?> 
                                                     <div class="comment-sec">
                                                         <ul>
 <?php
-        foreach(loadComment($post['ID']) as $cmt):
+            foreach(loadComment($post['ID']) as $cmt):
 ?>                                                        
                                                             <li>
                                                                 <div class="comment-list">
@@ -207,13 +213,13 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                                 </div><!--comment-list end-->
                                                             </li>
 <?php
-        endforeach;
+            endforeach;
 ?>
                                                             
                                                         </ul>
                                                     </div><!--comment-sec end-->
 <?php
-    endif;
+        endif;
 ?>                                                
                                                     
                                                     <div class="post-comment">
@@ -229,10 +235,10 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                         </div>
                                                     </div><!--post-comment end-->
                                                 </div>
-                                                
-                                                
-                                            </div>
-<?php
+                                            </div><!--post-bar end-->
+<?php								
+	endif;
+										
 endforeach;
 ?>
 
