@@ -38,6 +38,14 @@ function createUser($displayName, $email, $password,$phonenumber,$address) {
     sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là  <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
     return $id;
 }
+
+/* send email thông báo gửi lời mời kết bạn */
+function sendEmailAddFr($name,$email,$text,$id)
+{
+    global $BASE_URL;
+    sendEmail($email,$name,'Thông báo bạn có lời mời kết bạn',"<a href=\"$BASE_URL/profile.php?id=$id\">$text </a> đã gửi cho bạn lời mời kết bạn");
+    //sendEmail($email,$name,'Thông báo bạn có lời mời kết bạn'," đã gửi cho bạn lời mời kết bạn !!");
+}
 /* active user*/
 function activateUser($code) {
     global $pdo;

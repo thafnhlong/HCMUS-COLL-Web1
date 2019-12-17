@@ -16,7 +16,7 @@ $EMAIL_NAME     = 'NoReply';
 $EMAIL_PASSWORD = '1234qQ4321';
 
 // Base url config
-$BASE_URL = 'http://localhost:8080/LTWEB1/BTN01';
+$BASE_URL = 'http://localhost:8080/LTWEB1/BTN03';
 
 // Pagination
 $numPostOfPage = 10;
