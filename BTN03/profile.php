@@ -113,36 +113,125 @@ if ($me2you && $you2me){
 
 											
 <?php
+$postdem  = -1;
 foreach(GetStatusByUserID($profile['ID']) as $post):
+    $postdem ++;
 ?>
-                                            <div class="post-bar">
-                                                <div class="post_topbar">
-                                                    <div class="usy-dt">
-                                                        <img style="width: 50px;height: 50px;" src="<?php echo getImage($profile['ID'],0)[1]?>" alt="">
-                                                        <div class="usy-name">
-                                                            <h3><?php echo $profile['Name']?></h3>
-                                                            <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
+                                            <div class="posty" style="margin-bottom: 25px;">
+                                            
+                                                <div class="post-bar no-margin">
+                                                    <div class="post_topbar">
+                                                        <div class="usy-dt">
+                                                            <img style="width: 50px;height: 50px;" src="<?php echo getImage($profile['ID'],0)[1]?>" alt="">
+                                                            <div class="usy-name">
+                                                                <h3><?php echo $profile['Name']?></h3>
+                                                                <span><img src="images/clock.png" alt=""><?php echo $post['Time']?></span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="epi-sec">
-                                                    <ul class="bk-links">
-                                                        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="job_descp">
-                                                    <h3>Title</h3>
-                                                    <p><?php echo $post['Content']?></p>
+                                                    <div class="epi-sec">
+                                                        <ul class="bk-links">
+                                                            <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="job_descp">
+                                                        <h3>Title</h3>
+                                                        <p><?php echo $post['Content']?></p>
 <?php
     $imagePostResult = getImage($post['ID']);
     if ($imagePostResult[0]):
 ?>                                                
-                                                    <img style="margin: 0 2px 2px 0" src="<?php echo $imagePostResult[1]?>" />
+                                                        <img style="margin: 0 2px 2px 0" src="<?php echo $imagePostResult[1]?>" />
 <?php 
     endif;
 ?>
+                                                    </div>
+                                                    
+                                                    <div class="job-status-bar">
+                                                        <ul class="like-com">
+                                                            <li>
+<?php
+    $likesnum = countLike($post['ID']);
+
+    $prefix="";
+    if (isLike($currentUser['ID'],$post['ID'])){
+        $likecss = " style='color:blue;' ";
+        $likecontent = "UnLike";
+        $prefix = "un";
+    }
+    else{
+        $likecss = "";
+        $likecontent = "Like";
+    }
+?>
+                                                                <a href="<?php echo $prefix?>like.php?postid=<?php echo $post['ID']?>" <?php echo $likecss?>><i class="fas fa-heart"></i> <?php echo $likecontent?></a>
+<?php
+    if ($likesnum>0):                                                            
+?>
+                                                                <img src="images/liked-img.png" alt="">
+                                                                <span><?php echo $likesnum?></span>
+<?php
+    endif;
+?>
+                                                            </li> 
+                                                        </ul>
+<?php
+    $cmtnum = countComment($post['ID']);
+?>                                                    
+                                                        <a onclick="triggerComment(<?php echo $postdem ?>)" class="com"><i class="fas fa-comment-alt"></i> Comment <?php echo $cmtnum?></a>
+                                                    </div>
+                                                    
+                                                    
+                                                </div><!--post-bar end-->
+                                                
+                                                
+                                                <div style="display:none" class="comment-section">
+<?php
+    if ($cmtnum > 0):
+?> 
+                                                    <div class="comment-sec">
+                                                        <ul>
+<?php
+        foreach(loadComment($post['ID']) as $cmt):
+?>                                                        
+                                                            <li>
+                                                                <div class="comment-list">
+                                                                    <div class="comment">
+                                                                        <div>
+                                                                            <img width="40px" height="40px" src="<?php echo getImage($cmt['uid'],0)[1]?>" alt="">
+                                                                        </div>
+                                                                        <h3><?php echo $cmt['Name']?></h3>
+                                                                        <span><img src="images/clock.png" alt=""> <?php echo $cmt['CreateAt']?></span>
+                                                                        <p style="word-break: break-all;" ><?php echo $cmt['Content']?></p>
+                                                                    </div>
+                                                                </div><!--comment-list end-->
+                                                            </li>
+<?php
+        endforeach;
+?>
+                                                            
+                                                        </ul>
+                                                    </div><!--comment-sec end-->
+<?php
+    endif;
+?>                                                
+                                                    
+                                                    <div class="post-comment">
+                                                        <div class="cm_img">
+                                                            <img width="40px" height="40px" src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
+                                                        </div>
+                                                        <div class="comment_box">
+                                                            <form action="comment.php" method="post">
+                                                                <input hidden="true" name="postid" value="<?php echo $post['ID']?>"/>
+                                                                <input type="text" name="content" placeholder="Post a comment">
+                                                                <button type="submit" name="cmtsend">Send</button>
+                                                            </form>
+                                                        </div>
+                                                    </div><!--post-comment end-->
                                                 </div>
-                                            </div><!--post-bar end-->
+                                                
+                                                
+                                            </div>
 <?php
 endforeach;
 ?>
@@ -186,5 +275,13 @@ endforeach;
 				</div> 
 			</div>
 		</main>
+        
+        <script>
+            function triggerComment(id){
+                old = document.getElementsByClassName("comment-section")[id].style.display;
+                newcss = old == "none" ? "block" : "none";
+                document.getElementsByClassName("comment-section")[id].style.display = newcss;
+            }
+        </script>
 <?php 
 include 'footer.php'; 

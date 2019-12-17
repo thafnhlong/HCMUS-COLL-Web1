@@ -1626,7 +1626,7 @@ main {
 	padding-left: 50px;
 }
 .comment-list {
-	display: table;
+	/*display: table;*/
 	padding-bottom: 30px;
 }
 .bg-img {
@@ -1640,7 +1640,7 @@ main {
 	border-radius: 100px;
 }
 .comment {
-	display: table-cell;
+	/*display: table-cell;*/
 	vertical-align: top;
 	width: 100%;
 	padding-left: 10px;

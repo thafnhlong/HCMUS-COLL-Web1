@@ -19,4 +19,4 @@ $EMAIL_PASSWORD = '1234qQ4321';
 $BASE_URL = 'http://localhost:8080/LTWEB1/BTN01';
 
 // Pagination
-$numPostOfPage = 10;
+$numPostOfPage = 5;

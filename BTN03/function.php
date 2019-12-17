@@ -117,6 +117,53 @@ function getCountPost()
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+function countLike($post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) SoLuong FROM `like` WHERE PostID = ?");
+    $stmt->execute(array($post));
+    return $stmt->fetch(PDO::FETCH_ASSOC)['SoLuong'];
+}
+function isLike($id,$post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM `like` WHERE UserID = ? and PostID = ?");
+    $stmt->execute(array($id,$post));
+    return $stmt->fetch(PDO::FETCH_ASSOC) != null;
+}
+function likePost($id,$post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT `like`(UserID,PostID) VALUES(?,?)");
+    $stmt->execute(array($id,$post));
+}
+function unlikePost($id,$post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("DELETE FROM `like` WHERE UserID = ? and PostID = ?");
+    $stmt->execute(array($id,$post));
+}
+
+function loadComment($post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT c.*,u.Name,u.id uid FROM `comment` c JOIN `user` u ON c.UserID=u.ID WHERE c.PostID = ?");
+    $stmt->execute(array($post));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function countComment($post)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) SoLuong FROM `comment` WHERE PostID = ?");
+    $stmt->execute(array($post));
+    return $stmt->fetch(PDO::FETCH_ASSOC)['SoLuong'];
+}
+function postComment($id,$post,$content)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT `comment`(UserID,PostID,Content) VALUES(?,?,?)");
+    $stmt->execute(array($id,$post,$content));
+}
 
 /*Frendship*/
 function sendRequest($id,$target)
