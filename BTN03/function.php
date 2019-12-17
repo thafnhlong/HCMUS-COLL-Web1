@@ -129,16 +129,21 @@ function friendPost($page,$id)
 {
     global $pdo;
     global $numPostOfPage;
-    $stmt = $pdo->prepare("SELECT p.Privacy,p.Content,p.Time,p.ID,u.Name,u.ID uid from friendship f1, friendship f2 JOIN user u ON u.id = f2.id JOIN post p on p.UserID = u.id where f1.id = f2.target and f1.target = f2.id and f1.id = ? and p.Privacy != 0 ORDER BY p.Time DESC");
-    $stmt->bindValue(1, $numPostOfPage*($page-1), PDO::PARAM_INT);
-    $stmt->bindValue(2, $numPostOfPage, PDO::PARAM_INT);
-    $stmt->execute(array($id));
+    $stmt = $pdo->prepare("select distinct p.Privacy,p.Content,p.Time,p.ID,u.Name,u1.ID uid,u1.Name "
+                         ."from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid,user u where u.id = ? and ((p.userid=u.id) or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy in (1,2))) "
+                         ."order by p.Time desc limit ?, ?");
+    $stmt->bindValue(1, $id, PDO::PARAM_INT);                         
+    $stmt->bindValue(2, $numPostOfPage*($page-1), PDO::PARAM_INT);
+    $stmt->bindValue(3, $numPostOfPage, PDO::PARAM_INT);
+    $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 function friendCountPost($id)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT COUNT(*) num from friendship f1, friendship f2 JOIN user u ON u.id = f2.id JOIN post p on p.UserID = u.id where f1.id = f2.target and f1.target = f2.id and f1.id = ?");
+    $stmt = $pdo->prepare("select count(distinct (p.id)) num "
+                         ."from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid,user u where u.id = ? and ((p.userid=u.id) or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy in (1,2))) "
+                         );
     $stmt->execute(array($id));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
