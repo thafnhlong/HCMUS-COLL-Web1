@@ -108,12 +108,11 @@ if ($me2you && $you2me){
 										</div><!-- tab-feed end-->
 									</div><!--user-tab-sec end-->
 									<div class="product-feed-tab current" id="feed-dd">
-										<div class="posts-section">
-
-
-											
+										<div class="posts-section">									
 <?php
-foreach(GetStatusByUserID($profile['ID']) as $post):
+foreach(GetStatusByUserID($profile['ID']) as $post):  
+	if($post['Privacy'] != 0):
+		if($post['Privacy'] == 1 && $me2you && $you2me || $post['Privacy'] == 2):
 ?>
                                             <div class="post-bar">
                                                 <div class="post_topbar">
@@ -134,16 +133,19 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                     <h3>Title</h3>
                                                     <p><?php echo $post['Content']?></p>
 <?php
-    $imagePostResult = getImage($post['ID']);
-    if ($imagePostResult[0]):
+			$imagePostResult = getImage($post['ID']);
+			if ($imagePostResult[0]):
 ?>                                                
                                                     <img style="margin: 0 2px 2px 0" src="<?php echo $imagePostResult[1]?>" />
 <?php 
-    endif;
+    		endif;
 ?>
                                                 </div>
                                             </div><!--post-bar end-->
-<?php
+<?php								
+		endif;
+	endif;
+											
 endforeach;
 ?>
 

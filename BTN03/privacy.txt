@@ -1,0 +1,5 @@
+0-onlyme
+1-friend
+2-everyone
+
+select u.*,p.* from friendship f1, friendship f2 JOIN user u ON u.id = f2.id JOIN post p on p.UserID = u.id where f1.id = f2.target and f1.target = f2.id and f1.id = 2

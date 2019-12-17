@@ -26,9 +26,9 @@ if (isset($_POST['submit']) )
             else $haveimage = false;
         }       
         if (!$error){
-        
+			$pri = $_POST['privacy'];
             $user = $currentUser;
-            $id = userPost($user,$content);
+            $id = userPost($user,$content,$pri);
             if ($haveimage)
                 move_uploaded_file($_FILES['file']['tmp_name'], 'images/post/'.$id.'.jpg');
         }
@@ -126,7 +126,7 @@ include "header.php";
 
 									<div class="posts-section">
 <?php
-$countPost = getCountPost()['num'];
+$countPost = friendCountPost($currentUser['ID'])['num'];
 $countPage = (int)(($countPost-1) / $numPostOfPage+1);
 $pagenum = 1;
 if (!empty($_GET['num']))
@@ -134,7 +134,7 @@ if (!empty($_GET['num']))
     $num = $_GET['num'];    
     $pagenum = $num < 1 ? 1 : ($num > $countPage ? $countPage : $num);
 }
-foreach(loadPost($pagenum) as $post):
+foreach(friendPost($pagenum,$currentUser['ID']) as $post):
 ?>
 										<div class="post-bar">
 											<div class="post_topbar">
@@ -257,7 +257,16 @@ endif;
 					<form id='form1' action="index.php" method="post" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-lg-12">
-								<input disabled type="text" name="title" placeholder="Title">
+								<ul>
+									<span><br>Who will see this post?<br/>
+									<select name="privacy">
+											<option value="0">Only Me</option>
+											<option value="1" selected="selected" >Friend</option>
+											<option value="2">EveryOne</option>
+									</select>
+									</span>
+									<input type="hidden" name="submit">
+								<ul>
 							</div>
 							<div class="col-lg-12">
 								<textarea name="content" name="description" placeholder="Description"></textarea>
@@ -271,9 +280,11 @@ endif;
                                 </div>
 							</div>
 							<div class="col-lg-12">
+								
 								<ul>
-                                    <input type="hidden" name="submit">
-									<li><button form='form1' class="active" type="submit" value="submit">Post</button></li>
+									<li>
+										<button form='form1' class="active" type="submit" value="submit">Post</button>
+									</li>
 								</ul>
 							</div>
 						</div>

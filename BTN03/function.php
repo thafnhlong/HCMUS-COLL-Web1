@@ -93,11 +93,11 @@ function generateRandomString($length = 10) {
 }
 
 /*Newfeed*/
-function userPost($user,$content)
+function userPost($user,$content,$pri)
 {
     global $pdo;
-    $stmt = $pdo->prepare("INSERT post(Content,UserID) values (?,?)");
-    $stmt->execute(array($content,$user['ID']) );
+    $stmt = $pdo->prepare("INSERT post(Content,UserID,Privacy) values (?,?,?)");
+    $stmt->execute(array($content,$user['ID'],$pri));
     return $pdo->lastInsertId();
 }
 function loadPost($page)
@@ -117,7 +117,23 @@ function getCountPost()
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
+function friendPost($page,$id)
+{
+    global $pdo;
+    global $numPostOfPage;
+    $stmt = $pdo->prepare("SELECT p.Content,p.Time,p.ID,u.Name,u.ID uid from friendship f1, friendship f2 JOIN user u ON u.id = f2.id JOIN post p on p.UserID = u.id where f1.id = f2.target and f1.target = f2.id and f1.id = ? and p.Privacy != 0 ORDER BY p.Time DESC");
+    $stmt->bindValue(1, $numPostOfPage*($page-1), PDO::PARAM_INT);
+    $stmt->bindValue(2, $numPostOfPage, PDO::PARAM_INT);
+    $stmt->execute(array($id));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function friendCountPost($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) num from friendship f1, friendship f2 JOIN user u ON u.id = f2.id JOIN post p on p.UserID = u.id where f1.id = f2.target and f1.target = f2.id and f1.id = ?");
+    $stmt->execute(array($id));
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 /*Frendship*/
 function sendRequest($id,$target)
 {
