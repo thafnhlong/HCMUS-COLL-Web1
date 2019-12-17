@@ -5,11 +5,32 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PostID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `Content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `CreateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 DROP TABLE IF EXISTS `friendship`;
 CREATE TABLE `friendship` (
-  `ID` int(10) DEFAULT NULL,
-  `Target` int(10) DEFAULT NULL,
-  `CreateAt` datetime DEFAULT CURRENT_TIMESTAMP
+  `ID` int(10) NOT NULL,
+  `Target` int(10) NOT NULL,
+  `CreateAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`,`Target`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `like`;
+CREATE TABLE `like` (
+  `PostID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `CreateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`PostID`,`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -19,6 +40,7 @@ CREATE TABLE `post` (
   `Content` text NOT NULL,
   `UserID` int(11) NOT NULL,
   `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Privacy` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -40,4 +62,4 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2019-12-08 09:20:48
+-- 2019-12-17 17:17:55
