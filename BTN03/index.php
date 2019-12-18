@@ -37,7 +37,8 @@ if (isset($_POST['submit']) )
     } else 
         $error = -1;
 } else 
-    $error = -3;
+	$error = -3;
+
 include "header.php";
 ?>
 
@@ -141,7 +142,20 @@ foreach(friendPost($pagenum,$currentUser['ID']) as $post):
     $postdem++;
 ?>
                                         <div class="posty" style="margin-bottom: 25px;">
-                                            <div class="post-bar no-margin">
+                                          <div class="post-bar no-margin">
+<?php
+	if($currentUser['ID'] == $post['uid']):
+?>  
+												<!--Edit-->
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a onclick="$('#privacyPostID').val(<?php echo $post['ID']?>)" style="cursor: pointer" data-toggle="modal" data-target="#ModalEditPosts" title="">Edit Privacy</a></li>
+													</ul>
+												</div>
+<?php
+	endif;
+?>
                                                 <div class="post_topbar">
                                                     <div class="usy-dt">
                                                         <img style="width: 50px;height: 50px;" src="<?php echo getImage($post['uid'],0)[1]?>" alt="">
@@ -389,6 +403,48 @@ endif;
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
         
+
+		<!-- Open Modal EditPosts -->
+		<div class="modal fade" id="ModalEditPosts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="width: 600px; height: 420px;">
+					<div class="post-project">
+							<h3 >Who will see this post?</h3>
+								<div class="post-project-fields" >
+										<form id='form1' action="privacyPost.php" method="post" >
+											<div class="row">							
+												<div class="col-lg-12 custom-file" style="margin-top:25px">
+													<ul>
+														<p>Who will see this post?</p>
+														<ul></ul>
+														<select name="privacy">
+																<option value="0">Only Me</option>
+																<option value="1" selected="selected" >Friend</option>
+																<option value="2">EveryOne</option>
+														</select>
+													</ul>
+												</div>
+												<div class="col-lg-12 custom-file" style="margin-top:35px">
+													<input id="privacyPostID" hidden="true" name="postid" type="text" /> 										
+												</div>
+												<div class="col-lg-12 custom-file" style="margin-top:35px">																							
+												<div class="col-lg-12">
+													<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Cập nhật </button>
+													<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>									       
+					</div>
+				</div>	
+			</div>													
+		</div>
+		<!--End Modal EditPosts-->
+
         <script>
             function triggerComment(id){
                 old = document.getElementsByClassName("comment-section")[id].style.display;
@@ -396,6 +452,9 @@ endif;
                 document.getElementsByClassName("comment-section")[id].style.display = newcss;
             }
         </script>
+
+
+
 
 
 

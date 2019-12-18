@@ -179,6 +179,15 @@ foreach(GetStatusByUserID($currentUser['ID']) as $post):
                                             <div class="posty" style="margin-bottom: 25px;">
                                             
                                                 <div class="post-bar no-margin">
+
+													<!--Edit-->
+													<div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a onclick="$('#privacyPostID').val(<?php echo $post['ID']?>)" style="cursor: pointer" data-toggle="modal" data-target="#ModalEditPosts" title="">Edit Privacy</a></li>
+														</ul>
+													</div>
+
                                                     <div class="post_topbar">
                                                         <div class="usy-dt">
                                                             <img style="width: 50px;height: 50px;" src="<?php echo getImage($currentUser['ID'],0)[1]?>" alt="">
@@ -476,43 +485,6 @@ endforeach;
   	</div>													
 </div>
 <!--End Modal EditProfile-->
-<!-- Open Modal EditPosts -->
-<div class="modal fade" id="ModalEditPosts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content" style="width: 600px; height: 420px;">
-			<div class="post-project">
-					<h3 >Cập nhật bài đăng</h3>
-						<div class="post-project-fields" >
-								<form id='form1' action="my-account.php" method="post" >
-									<div class="row">							
-										<div class="col-lg-12 custom-file" style="margin-top:25px">
-											<label style="margin-top:10px;margin-bottom:10px" >Số điện thoại</label>                    
-											<input type="text" class="form-control" name="phonenumber" value="<?php echo $currentUser['PhoneNumber'] ?>">
-										</div>
-										<div class="col-lg-12 custom-file" style="margin-top:35px">
-											<label style="margin-top:10px;margin-bottom:10px" >Email</label>                          
-											<input type="email" class="form-control" name="email" value="<?php echo $currentUser['Email'] ?>">
-										</div>
-										<div class="col-lg-12 custom-file" style="margin-top:35px">
-											<label style="margin-top:10px;margin-bottom:10px" >Địa chỉ</label>                            
-											<input type="text" class="form-control" name="address" value="<?php echo $currentUser['Address'] ?>">	
-											
-										<div class="col-lg-12">
-											<button style="background-color: #e44d3a" type="submit" name="submitprofile" class="btn btn-primary">Cập nhật </button>
-											<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-										</div>
-									</div>
-								</form>
-							</div>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>									       
-			</div>
-		</div>	
-  	</div>													
-</div>
-<!--End Modal EditPosts-->
 <!-- Open Modal Edit Job -->
 <div class="modal fade" id="ModalEditJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -552,6 +524,47 @@ endforeach;
 	</div><!--theme-layout end-->
 
 	
+	<!-- Open Modal EditPosts -->
+	<div class="modal fade" id="ModalEditPosts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="width: 600px; height: 420px;">
+				<div class="post-project">
+						<h3 >Who will see this post?</h3>
+							<div class="post-project-fields" >
+									<form id='form1' action="privacyPost.php" method="post" >
+										<div class="row">							
+											<div class="col-lg-12 custom-file" style="margin-top:25px">
+												<ul>
+													<p>Who will see this post?</p>
+													<ul></ul>
+													<select name="privacy">
+															<option value="0">Only Me</option>
+															<option value="1" selected="selected" >Friend</option>
+															<option value="2">EveryOne</option>
+													</select>
+												</ul>
+											</div>
+											<div class="col-lg-12 custom-file" style="margin-top:35px">
+												<input id="privacyPostID" hidden="true" name="postid" type="text" /> 										
+											</div>
+											<div class="col-lg-12 custom-file" style="margin-top:35px">																							
+											<div class="col-lg-12">
+												<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Cập nhật </button>
+												<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>									       
+				</div>
+			</div>	
+		</div>													
+	</div>
+	<!--End Modal EditPosts-->
+
 
     <script>
         function triggerComment(id){

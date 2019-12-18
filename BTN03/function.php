@@ -147,7 +147,13 @@ function friendCountPost($id)
     $stmt->execute(array($id));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
+/* cập nhật lại trạng thái bài đăng */
+function updatePrivacy($postid,$privacy,$uid)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE post SET Privacy=? WHERE ID=? and userid= ?");
+    $stmt->execute(array($privacy,$postid,$uid));
+} 
 function countLike($post)
 {
     global $pdo;
