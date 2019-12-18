@@ -1,5 +1,3 @@
--- Adminer 4.7.5 MySQL dump
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -24,6 +22,8 @@ CREATE TABLE `friendship` (
   PRIMARY KEY (`ID`,`Target`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `friendship` (`ID`, `Target`, `CreateAt`) VALUES
+(0,	0,	'2019-12-18 05:46:55');
 
 DROP TABLE IF EXISTS `like`;
 CREATE TABLE `like` (
@@ -39,7 +39,7 @@ CREATE TABLE `post` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Content` text NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Privacy` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,4 +62,4 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2019-12-17 17:17:55
+-- 2019-12-18 10:08:44

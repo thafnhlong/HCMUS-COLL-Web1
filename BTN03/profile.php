@@ -56,13 +56,13 @@ if ($me2you && $you2me){
 ?>
                                                 <li><a href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
 <?php    
-    $src = "sendRequest.php?id={$profile['ID']}&&tt=2";
+    $src = "sendRequest.php?id={$profile['ID']}";
     $valueAnchor = "Đồng ý";
 } elseif ($me2you){
     $src = "deleteRequest.php?id={$profile['ID']}";
     $valueAnchor = "Xóa lời mời kết bạn";
 } else {
-    $src = "sendRequest.php?id={$profile['ID']}&&tt=1";
+    $src = "sendRequest.php?id={$profile['ID']}&s";
     $valueAnchor = "Thêm bạn";   
 }
 
@@ -111,9 +111,9 @@ if ($me2you && $you2me){
 										<div class="posts-section">									
 <?php
 $postdem  = -1;
-foreach(GetStatusByUserID($profile['ID']) as $post):
-    $postdem ++;
+foreach(GetStatusByUserID($profile['ID']) as $post):  
     if($post['Privacy'] == 2 || ($post['Privacy'] == 1 && $me2you && $you2me)):
+        $postdem ++;
 ?>
                                             <div class="posty" style="margin-bottom: 25px;">
                                             
@@ -206,7 +206,7 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                                         <div>
                                                                             <img width="40px" height="40px" src="<?php echo getImage($cmt['uid'],0)[1]?>" alt="">
                                                                         </div>
-                                                                        <h3><?php echo $cmt['Name']?></h3>
+                                                                        <h3><a href="profile.php?id=<?php echo $cmt['uid']?>"><?php echo $cmt['Name']?></a></h3>
                                                                         <span><img src="images/clock.png" alt=""> <?php echo $cmt['CreateAt']?></span>
                                                                         <p style="word-break: break-all;" ><?php echo $cmt['Content']?></p>
                                                                     </div>

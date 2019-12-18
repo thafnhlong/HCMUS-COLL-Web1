@@ -42,13 +42,13 @@ if ($me2you && $you2me){
 ?>
                                                 <li><a href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
 <?php    
-    $src = "sendRequest.php?id={$u['ID']}&&tt=2";
+    $src = "sendRequest.php?id={$u['ID']}";
     $valueAnchor = "Đồng ý";
 } elseif ($me2you){
     $src = "deleteRequest.php?id={$u['ID']}";
     $valueAnchor = "Xóa lời mời kết bạn";
 } else {
-    $src = "sendRequest.php?id={$u['ID']}&&tt=1";
+    $src = "sendRequest.php?id={$u['ID']}&s=";
     $valueAnchor = "Thêm bạn";   
 }
 

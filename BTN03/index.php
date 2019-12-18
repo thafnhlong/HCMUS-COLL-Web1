@@ -243,7 +243,7 @@ foreach(friendPost($pagenum,$currentUser['ID']) as $post):
                                                                     <div>
                                                                         <img width="40px" height="40px" src="<?php echo getImage($cmt['uid'],0)[1]?>" alt="">
                                                                     </div>
-                                                                    <h3><?php echo $cmt['Name']?></h3>
+                                                                    <h3><a href="profile.php?id=<?php echo $cmt['uid']?>"><?php echo $cmt['Name']?></a></h3>
                                                                     <span><img src="images/clock.png" alt=""> <?php echo $cmt['CreateAt']?></span>
                                                                     <p style="word-break: break-all;" ><?php echo $cmt['Content']?></p>
                                                                 </div>
