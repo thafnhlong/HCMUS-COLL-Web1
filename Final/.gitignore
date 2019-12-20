@@ -1,0 +1,14 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+vendor/*
+
+images/avatar/*
+images/cover/*
+images/post/*
+
+!images/post/empty.txt
+!images/*/0.jpg
