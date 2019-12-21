@@ -223,8 +223,13 @@ function loadMessageToID($id,$toid,$maxid){
 }
 function sendMessageToID($id,$toid,$content){
     global $pdo;
-    $stmt = $pdo->prepare("insert message(fromid,toid,content) values (?,?,?)");
-    $stmt->execute(array($id,$toid,$content));
+    $stmt = $pdo->prepare("select u1.email,u2.name from user u1,user u2 where u2.id=? and u1.id=?;insert message(fromid,toid,content) values (?,?,?)");
+    $stmt->execute(array($id,$toid,$id,$toid,$content));//,$toid,$id));
+    
+    if ($info = $stmt->fetch(PDO::FETCH_ASSOC)){
+        global $BASE_URL;
+        sendEmail($info['email'],$info['email'],"Có tin nhắn từ {$info['name']}","{$content}\n\n<br/><br/>Để nhắn tin lại vui lòng nhấp vào <a href='{$BASE_URL}/message.php?toid={$id}'> đường link này </a>");
+    }
 }
 function hideMessageToID($id,$toid,$mesid){
     global $pdo;
