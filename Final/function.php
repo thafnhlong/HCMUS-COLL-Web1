@@ -205,23 +205,31 @@ function postComment($id,$post,$content)
 /* Message */
 function loadLastMessage($id){
     global $pdo;
-    $stmt = $pdo->prepare("select m.* from message m join ".
-                        "(select fromid,toid,max(createAt) as LastTime from message group by fromid,toid) as LastTable ".
-                        "on m.fromid = LastTable.fromid and m.toid= LastTable.toid and m.createAt = LastTable.LastTime ".
-                        "where m.fromid=?");
-    $stmt->execute(array($id));
+    $stmt = $pdo->prepare(@"
+select data.id,u.name,data.content,DATE_FORMAT(data.createAt,'%e-%c %h:%i %p') createAt
+from (select case when m.fromid=? then m.toid else m.fromid end id, concat(substring(m.content,1,25) ,' ','...') content, m.createAt from message m where id = (select max(id) from message where (fromid = m.toid and toid = m.fromid) or (fromid = m.fromid and toid = m.toid))
+and (m.toid = ? or m.fromid = ?) ) data join user u on data.id = u.id
+order by createAt desc
+    "
+    );
+    $stmt->execute(array($id,$id,$id));
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function loadMessageToID($id,$toid){
+function loadMessageToID($id,$toid,$maxid){
     global $pdo;
-    $stmt = $pdo->prepare("select m.* from message m where fromid = ? and toid = ?");
-    $stmt->execute(array($id,$toid));
+    $stmt = $pdo->prepare("select m.* from message m where m.id > ? and  ((fromid = ? and toid = ?) or (fromid = ? and toid = ? and m.status=true))");
+    $stmt->execute(array($maxid,$id,$toid,$toid,$id));
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 function sendMessageToID($id,$toid,$content){
     global $pdo;
     $stmt = $pdo->prepare("insert message(fromid,toid,content) values (?,?,?)");
     $stmt->execute(array($id,$toid,$content));
+}
+function hideMessageToID($id,$toid,$mesid){
+    global $pdo;
+    $stmt = $pdo->prepare("update message set status=false where fromid = ? and toid = ? and id = ?");
+    $stmt->execute(array($id,$toid,$mesid));
 }
 
 

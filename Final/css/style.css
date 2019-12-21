@@ -4973,6 +4973,7 @@ a:hover {
 	bottom: 25px;
 }
 .main-message-box.ta-right .message-dt {
+    width: 100%;
 	padding-left: 0;
 	padding-right: 85px;
 }
@@ -4988,6 +4989,13 @@ a:hover {
 	-o-border-radius: 15px;
 	border-radius: 15px;
 	width: 100%;
+}
+.message-inner-dt > i
+{
+    float: right;
+    margin-right: 25px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 .img-bx {
 	background-color: #efefef;
@@ -5006,8 +5014,9 @@ a:hover {
 	margin-top: 7px;
 }
 .message-inner-dt > p {
+    word-break:break-word;
 	float: right;
-	width: 60%;
+	max-width: 60%;
 	background-color: #e44d3a;
 	font-size: 14px;
 	line-height: 22px;
@@ -5039,6 +5048,8 @@ a:hover {
 	float: left;
 	width: 100%;
 	height: 604px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* ============== message-send-area ============ */
@@ -6845,4 +6856,7 @@ ul#myTab {
 .xd-list{
     width: 125px;
     word-break: break-all;
+}
+button[disabled=disabled], button:disabled {
+    background-color:#3e3e3e;
 }

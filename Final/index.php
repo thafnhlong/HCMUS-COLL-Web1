@@ -167,7 +167,7 @@ foreach(friendPost($pagenum,$currentUser['ID']) as $post):
                                                 </div>
                                                 <div class="epi-sec">
                                                     <ul class="bk-links">
-                                                        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                                                        <li><a href="message.php?toid=<?=$post['uid']?>" title=""><i class="la la-envelope"></i></a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="job_descp">    

@@ -129,7 +129,7 @@ foreach(GetStatusByUserID($profile['ID']) as $post):
                                                     </div>
                                                     <div class="epi-sec">
                                                         <ul class="bk-links">
-                                                            <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                                                            <li><a href="message.php?toid=<?=$profile['ID']?>" title=""><i class="la la-envelope"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="job_descp">
@@ -252,7 +252,7 @@ endforeach;
 							<div class="col-lg-3">
 								<div class="right-sidebar">
 									<div class="message-btn">
-										<a href="#" title=""><i class="fa fa-envelope"></i> Message</a>
+										<a href="message.php?toid=<?=$profile['ID']?>" title=""><i class="fa fa-envelope"></i> Message</a>
 									</div>
 									<div style="margin-top: 45px;" class="widget widget-portfolio">
 										<div class="wd-heady">

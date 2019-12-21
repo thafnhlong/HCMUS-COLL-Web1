@@ -43,6 +43,12 @@ include 'header-first.php';
 									Members
 								</a>
 							</li><!--profiles end-->
+                            <li>
+								<a href="message.php" title="">
+									<span><img src="images/icon6.png" alt=""></span>
+									Messages
+								</a>
+							</li><!--profiles end-->
 							<li>
 								<a href="my-account.php" title="">
 									<span><img src="images/icon4.png" alt=""></span>

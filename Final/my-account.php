@@ -199,7 +199,7 @@ foreach(GetStatusByUserID($currentUser['ID']) as $post):
                                                     </div>
                                                     <div class="epi-sec">
                                                         <ul class="bk-links">
-                                                            <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                                                            <li><a href="message.php?toid=<?=$currentUser['ID']?>" title=""><i class="la la-envelope"></i></a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="job_descp">

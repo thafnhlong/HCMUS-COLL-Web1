@@ -3,7 +3,7 @@
 // Database config
 $DB_TYPE      = 'mysql:host';
 $DB_NAME_TYPE = 'dbname'; //Label for database name
-$DB_OPTIONAL  = ';charset=utf8';
+$DB_OPTIONAL  = ';charset=utf8mb4';
 // --
 $DB_HOST     = 'remotemysql.com';
 $DB_NAME     = 'jySgavqbrA';
