@@ -13,9 +13,7 @@ if (!empty($_GET['id']))
     $target = $_GET['id'];
     if ($target != $currentUser['ID'])
     {
-        deleteRequest($currentUser['ID'],$target);
-        deleteRequest($target,$currentUser['ID']);
-        deletefollow($currentUser['ID'],$target);
+        sendfollowing($currentUser['ID'],$target);
     }
 }
 

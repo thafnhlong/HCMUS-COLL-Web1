@@ -52,34 +52,75 @@ if ($me2you && $you2me){
 {
     $src = "deleteFriend.php?id={$profile['ID']}";
     $valueAnchor = "Hủy";
-    
 ?>
                                                 <li><a href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
-<?php    
+                                                
+<?php                                           
     $src = "sendRequest.php?id={$profile['ID']}";
     $valueAnchor = "Đồng ý";
 } elseif ($me2you){
     $src = "deleteRequest.php?id={$profile['ID']}";
     $valueAnchor = "Xóa lời mời kết bạn";
+    $valueFollowing="Theo dõi";
 } else {
     $src = "sendRequest.php?id={$profile['ID']}&s";
-    $valueAnchor = "Thêm bạn";   
+    $valueAnchor = "Thêm bạn"; 
 }
-
 ?>
 												<li>
                                                     <a href="<?php echo $src?>" title="" class="flww"><i class="la la-plus"></i> <?php echo $valueAnchor?></a>
-                                                </li>
+                                                </li>     
+<?php 
+$me_you=isfollow($currentUser['ID'],$profile['ID']);
+if($me_you ){
+    $valueFL="Hủy theo dõi";
+    $srcfl="deleteFollowing.php?id={$profile['ID']}";
+}
+else
+{
+    $valueFL="Theo dõi";
+    $srcfl="sendFollowing.php?id={$profile['ID']}&s=";
+}
+?>
+                                                <li style="display: block;" >
+                                                    <a style="margin-top: 10px;width: 150px;" href="<?php echo $srcfl?>" title="" class="flww"><i class="la la-plus"></i> <?php echo $valueFL?></a>
+                                                </li>   
+                                                                                     
+                                                          
 												<!--<li><a href="#" title="" class="hre">Hire</a></li>-->
 											</ul>
 											<ul class="flw-status">
 												<li>
+<?php 
+	$dem1=0;
+	if(countFollowing($profile['ID'])==null)
+		$dem1=0;
+	else
+	{
+		foreach(countFollowing($profile['ID']) as $d1)
+		{
+			$dem1=$dem1+1;
+		}
+	}
+?>
 													<span>Following</span>
-													<b>0</b>
+													<b><?php echo $dem1 ?></b>
 												</li>
 												<li>
+<?php 
+	$dem2=0;
+	if(countFollower($profile['ID'])==null)
+		$dem2=0;
+	else
+	{
+		foreach(countFollower($profile['ID']) as $d1)
+		{
+			$dem2=$dem2+1;
+		}
+	}
+?>
 													<span>Followers</span>
-													<b>0</b>
+													<b><?php echo $dem2 ?></b>
 												</li>
 											</ul>
 										</div><!--user_pro_status end-->

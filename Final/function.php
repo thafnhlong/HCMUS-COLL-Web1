@@ -451,3 +451,45 @@ function getUsers($id)
     $stmt->execute(array($id));
     return $stmt;
 }
+
+/* thêm dữ liệu vào bảng follow */
+function sendfollowing($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT follow(ID,Target) values (?,?)");
+    $stmt->execute(array($id,$target) );
+    return $pdo->lastInsertId();
+}
+
+/* xóa dữ liệu trong bảng follow */
+function deletefollow($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("DELETE FROM follow WHERE ID=? and Target=?");
+    $stmt->execute(array($id,$target) );
+}
+/* xác định đã theo dõi chưa */
+function isfollow($id,$target)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM follow WHERE ID=? and Target=?");
+    $stmt->execute(array($id,$target) );
+    return $stmt->fetch(PDO::FETCH_ASSOC) != null;
+}
+/* đếm số lượng người mình đang theo dõi */
+function countFollowing($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM follow WHERE ID=?");
+    $stmt->execute(array($id));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/* đếm số lượng người  đang theo dõi mình */
+function countFollower($id)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM follow WHERE Target=?");
+    $stmt->execute(array($id));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

@@ -14,6 +14,7 @@ if (!empty($_GET['id']))
     if ($target != $currentUser['ID'])
     {
         sendRequest($currentUser['ID'],$target);
+        sendfollowing($currentUser['ID'],$target);
     }
     if(isset($_GET['s']))
     {

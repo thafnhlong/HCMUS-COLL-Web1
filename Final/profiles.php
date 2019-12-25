@@ -27,8 +27,7 @@ foreach($getalluser as $u){ ?>
 									<h3><?php echo $u['Name']; ?></h3>
 									<h4><?php echo $u['Job']; ?></h4>
 									<ul>
-									<?php
-
+<?php
 $me2you = isRequest($currentUser['ID'],$u['ID']);
 $you2me = isRequest($u['ID'],$currentUser['ID']);
 if ($me2you && $you2me){
@@ -40,7 +39,7 @@ if ($me2you && $you2me){
     $valueAnchor = "Hủy";
     
 ?>
-                                                <li><a href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
+                                                <li><a  href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
 <?php    
     $src = "sendRequest.php?id={$u['ID']}";
     $valueAnchor = "Đồng ý";
@@ -51,10 +50,24 @@ if ($me2you && $you2me){
     $src = "sendRequest.php?id={$u['ID']}&s=";
     $valueAnchor = "Thêm bạn";   
 }
-
+?>
+<?php 
+$me_you=isfollow($currentUser['ID'],$u['ID']);
+if($me_you ){
+    $valueFL="Hủy theo dõi";
+    $srcfl="deleteFollowing.php?id={$u['ID']}";
+}
+else
+{
+    $valueFL="Theo dõi";
+    $srcfl="sendFollowing.php?id={$u['ID']}&s=";
+}
 ?>
 												<li>
-                                                    <a href="<?php echo $src?>" title="" class="flww"><i class="la la-plus"></i> <?php echo $valueAnchor?></a>
+                                                    <a href="<?php echo $src?>" title="" class="flww"><i class="la la-plus"></i> <?php echo $valueAnchor?></a>                                                    
+                                                </li>
+                                                <li style="display: block;">
+                                                <a style="margin-top:10px;" href="<?php echo $srcfl?>" title="" class="flww"><i class="la la-plus"></i> <?php echo $valueFL?></a>
                                                 </li>
 									</ul>
 								</div>
