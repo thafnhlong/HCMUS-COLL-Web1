@@ -129,9 +129,12 @@ function friendPost($page,$id)
 {
     global $pdo;
     global $numPostOfPage;
-    $stmt = $pdo->prepare("select distinct p.Privacy,p.Content,p.Time,p.ID,u.Name,u1.ID uid,u1.Name "
-                         ."from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid,user u where u.id = ? and ((p.userid=u.id) or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy in (1,2))) "
-                         ."order by p.Time desc limit ?, ?");
+    $stmt = $pdo->prepare(@"
+        select distinct p.Privacy,p.Content,p.Time,p.ID,u.Name,u1.ID uid,u1.Name 
+        from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid, user u 
+        where u.id = ? and ( (p.userid=u.id) or ( exists(select * from follow where id=u.id and target=p.userid) and ( p.privacy = 2 or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy = 1) )))
+        order by p.Time desc limit ?, ?
+    ");
     $stmt->bindValue(1, $id, PDO::PARAM_INT);                         
     $stmt->bindValue(2, $numPostOfPage*($page-1), PDO::PARAM_INT);
     $stmt->bindValue(3, $numPostOfPage, PDO::PARAM_INT);
@@ -141,9 +144,11 @@ function friendPost($page,$id)
 function friendCountPost($id)
 {
     global $pdo;
-    $stmt = $pdo->prepare("select count(distinct (p.id)) num "
-                         ."from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid,user u where u.id = ? and ((p.userid=u.id) or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy in (1,2))) "
-                         );
+    $stmt = $pdo->prepare(@"
+        select count(distinct (p.id)) num 
+        from friendship f1, friendship f2, post p join user u1 on u1.id = p.userid, user u 
+        where u.id = ? and ( (p.userid=u.id) or ( exists(select * from follow where id=u.id and target=p.userid) and ( p.privacy = 2 or (f1.id = f2.target and f2.id = f1.target and u.id = f1.id and p.userid = f2.id and p.privacy = 1) )))
+    ");
     $stmt->execute(array($id));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -480,16 +485,22 @@ function isfollow($id,$target)
 function countFollowing($id)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM follow WHERE ID=?");
+    $stmt = $pdo->prepare("SELECT Count(*) num FROM follow WHERE ID=?");
     $stmt->execute(array($id));
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $num=$stmt->fetch(PDO::FETCH_ASSOC);
+    if ($num == null)
+        return 0;
+    return $num['num'];
 }
 
 /* đếm số lượng người  đang theo dõi mình */
 function countFollower($id)
 {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM follow WHERE Target=?");
+    $stmt = $pdo->prepare("SELECT Count(*) num FROM follow WHERE Target=?");
     $stmt->execute(array($id));
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $num=$stmt->fetch(PDO::FETCH_ASSOC);
+    if ($num == null)
+        return 0;
+    return $num['num'];
 }

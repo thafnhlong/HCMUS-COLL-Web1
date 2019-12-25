@@ -8,7 +8,7 @@ CREATE TABLE `comment` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PostID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci NOT NULL,
+  `Content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `CreateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -52,13 +52,14 @@ CREATE TABLE `user` (
   `Email` varchar(255) NOT NULL,
   `Pass` varchar(255) NOT NULL,
   `Status` int(11) NOT NULL DEFAULT '0',
-  `Code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `CodeForgot` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci DEFAULT NULL,
-  `PhoneNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci DEFAULT 'Chưa cập nhật',
+  `Code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `CodeForgot` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PhoneNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Chưa cập nhật',
   `FaceBook` varchar(255) DEFAULT 'Chưa cập nhật',
   `Address` varchar(255) DEFAULT 'Chưa cập nhật',
-  `Job` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4mb4_unicode_ci DEFAULT 'Chưa cập nhật',
-  PRIMARY KEY (`ID`,`Email`)
+  `Job` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Chưa cập nhật',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `message`;
@@ -71,3 +72,11 @@ CREATE TABLE `message` (
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `follow`;
+CREATE TABLE `follow` (
+  `ID` int(11) NOT NULL,
+  `Target` int(11) NOT NULL,
+  `CreateAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`,`Target`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

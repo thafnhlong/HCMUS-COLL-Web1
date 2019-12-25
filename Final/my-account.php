@@ -100,32 +100,14 @@ ob_start();
 												<li>
 													<span>Following</span>
 <?php 
-	$dem1=0;
-	if(countFollowing($currentUser['ID'])==null)
-		$dem1=0;
-	else
-	{
-		foreach(countFollowing($currentUser['ID']) as $d1)
-		{
-			$dem1=$dem1+1;
-		}
-	}
+	$dem1= countFollowing($currentUser['ID']);
 ?>
 													<b><?php echo $dem1 ?></b>
 												</li>
 												<li>
 													<span>Followers</span>
 <?php 
-	$dem2=0;
-	if(countFollower($currentUser['ID'])==null)
-		$dem2=0;
-	else
-	{
-		foreach(countFollower($currentUser['ID']) as $d1)
-		{
-			$dem2=$dem2+1;
-		}
-	}
+	$dem2= countFollower($currentUser['ID']);
 ?>
 													<b><?php echo $dem2 ?></b>
 												</li>

@@ -92,32 +92,14 @@ else
 											<ul class="flw-status">
 												<li>
 <?php 
-	$dem1=0;
-	if(countFollowing($profile['ID'])==null)
-		$dem1=0;
-	else
-	{
-		foreach(countFollowing($profile['ID']) as $d1)
-		{
-			$dem1=$dem1+1;
-		}
-	}
+	$dem1= countFollowing($profile['ID']);
 ?>
 													<span>Following</span>
 													<b><?php echo $dem1 ?></b>
 												</li>
 												<li>
 <?php 
-	$dem2=0;
-	if(countFollower($profile['ID'])==null)
-		$dem2=0;
-	else
-	{
-		foreach(countFollower($profile['ID']) as $d1)
-		{
-			$dem2=$dem2+1;
-		}
-	}
+	$dem2= countFollower($profile['ID']);
 ?>
 													<span>Followers</span>
 													<b><?php echo $dem2 ?></b>
