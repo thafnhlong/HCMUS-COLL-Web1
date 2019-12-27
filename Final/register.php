@@ -137,7 +137,7 @@ ob_start();
 
                           <div class="col-lg-12 no-pdd">
                             <div class="sn-field">
-                              <input type="text" name="phonenumber" placeholder="Phone Number">
+                              <input type="number" name="phonenumber" placeholder="Phone Number">
                               <i class="la la-phone"></i>
                             </div>
                           </div>
@@ -218,7 +218,7 @@ ob_start();
 
                           <div class="col-lg-12 no-pdd">
                             <div class="sn-field">
-                              <input type="text" name="phonenumber" placeholder="Phone Number">
+                              <input type="number" name="phonenumber" placeholder="Phone Number">
                               <i class="la la-phone"></i>
                             </div>
                           </div>

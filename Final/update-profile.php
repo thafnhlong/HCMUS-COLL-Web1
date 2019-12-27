@@ -24,7 +24,8 @@ ob_start();
         updatePhoneNumber($PhoneUD,$currentUser['ID']);
         updateAddress($AddressUD,$currentUser['ID']);
         updateJob($JobUD,$currentUser['ID']);
-        $temp=true;
+		$temp=true;
+		header('Location: update-profile.php');
     }
 ?>
 <?php if($temp ): ?>

@@ -64,11 +64,17 @@ include "header.php";
 										<ul class="user-fw-status">
 											<li>
 												<h4>Following</h4>
-												<span>0</span>
+<?php 
+	$dem1= countFollowing($currentUser['ID']);
+?>
+												<span><?php echo $dem1 ?></span>
 											</li>
 											<li>
 												<h4>Followers</h4>
-												<span>0</span>
+<?php
+	$dem2= countFollower($currentUser['ID']);
+?>
+												<span><?php echo $dem2 ?></span>
 											</li>
 											<li>
 												<a href="my-account.php" title="">View Profile</a>
