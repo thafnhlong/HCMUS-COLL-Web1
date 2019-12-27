@@ -35,7 +35,7 @@ function createUser($displayName, $email, $password,$phonenumber,$address) {
     $stmt = $pdo->prepare("INSERT INTO user (Name, Email, Pass, Status, Code, CodeForgot, PhoneNumber, Address ) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
     $stmt->execute(array($displayName, $email, $hashPassword, 0, $code,0,$phonenumber,$address));
     $id = $pdo->lastInsertId();
-    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là  <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
+    sendEmail($email, $displayName, 'Kích hoạt tài khoản', "Mã kích hoạt tài khoản của bạn là $code, hoặc nhấp vào link sau để kích hoạt:  <a href=\"$BASE_URL/activate.php?code=$code\">$BASE_URL/activate.php?code=$code</a>");
     return $id;
 }
 
@@ -334,15 +334,21 @@ function SendMailFogetPasss($name,$email)
         $stmt = $pdo->prepare("UPDATE user SET CodeForgot=? where Email=?");
         $stmt->execute(array($code,$email));
         $pdo->lastInsertId();
-        sendEmail($email,$name,'Thiết lập lại mật khẩu',"Mã kích hoạt tài khoản của bạn là <a href=\"$BASE_URL/checkCodeForgot.php?code=$code\">$BASE_URL/checkCodeForgot.php?code=$code</a>");
+        sendEmail($email,$name,'Thiết lập lại mật khẩu',"Mã code reset password của bạn là $code, hoặc nhấp vào link sau: <a href=\"$BASE_URL/checkCodeForgot.php?code=$code\">$BASE_URL/checkCodeForgot.php?code=$code</a>");
     }
-
+function GetUserForgetByCode($code)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * from user where CodeForgot=?");
+    $stmt->execute(array($code));
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 /* câp nhật mật khẩu mới qua email */
 function UpdatePass($email,$pass)
     {
         global $pdo;
         $haspass=password_hash($pass,PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("UPDATE user SET Pass=? where Email=?");
+        $stmt = $pdo->prepare("UPDATE user SET Pass=?, CodeForgot=null where Email=?");
         $stmt->execute(array($haspass,$email));
         $pdo->lastInsertId();
     }

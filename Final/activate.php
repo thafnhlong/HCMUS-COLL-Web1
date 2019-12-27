@@ -14,8 +14,9 @@ ob_start();
 <?php header('Location: login.php'); ?>
 <?php else: ?>
 <div class="alert alert-danger" role="alert">
-  Kích hoạt tài khoản thất bại
+  Activation fail.
 </div>
+<a class="btn btn-warning" href="activate.php" role="button">Try again »</a>
 <?php endif; ?>
 <?php else: ?>
   <div class="wrapper">
@@ -38,7 +39,7 @@ ob_start();
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 no-pdd">
-                                                      <button type="submit" class="btn btn-primary">Kích hoạt tài khoản</button>
+                                                      <button type="submit" class="btn btn-primary">Activate Account</button>
                                                     </div>
                                                 </div>
                                             </form>

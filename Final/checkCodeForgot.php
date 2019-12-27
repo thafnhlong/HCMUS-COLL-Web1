@@ -6,8 +6,11 @@ ob_start();
 <?php if (isset($_GET['code'])): ?>
 <?php
   $success = false;
-  if($code = $_GET['code'])
+  $code = $_GET['code'];
+    
+  if($user = GetUserForgetByCode($code))
   {
+    $_SESSION['EmailForgot'] = $user['Email'];
     $success = true;
   }
 ?>
@@ -23,19 +26,19 @@ ob_start();
                             <div class="login-sec">
                                 <ul class="sign-control">
                                     <div class="sign_in_sec current" id="tab-2">
-                                          <h3 style="text-align: left;">Activate User</h3>
+                                          <h3 style="text-align: left;">Code:</h3>
                                         <div class="dff-tab current" id="tab-3">
                                           <form method="GET">
                                                 <div class="row">
                                                     <div class="col-lg-12 no-pdd">
                                                         <div class="sn-field">
-                                                            <input type="text" name="code" placeholder="Activation Code">
+                                                            <input type="text" name="code" placeholder="">
                                                             <i class="la la-barcode"></i>
                                                         </div>
                                                     </div>
-                                                    <span style="color:red">* Activate fail</span>
+                                                    <span style="color:red">* Wrong code</span>
                                                     <div class="col-lg-12 no-pdd">
-                                                      <button type="submit" class="btn btn-primary">Activation account</button>
+                                                      <button type="submit" class="btn btn-primary">Check code</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -72,18 +75,18 @@ ob_start();
                             <div class="login-sec">
                                 <ul class="sign-control">
                                     <div class="sign_in_sec current" id="tab-2">
-                                          <h3 style="text-align: left;">Activate User</h3>
+                                          <h3 style="text-align: left;">Code:</h3>
                                         <div class="dff-tab current" id="tab-3">
                                           <form method="GET">
                                                 <div class="row">
                                                     <div class="col-lg-12 no-pdd">
                                                         <div class="sn-field">
-                                                            <input type="text" name="code" placeholder="Activation Code">
+                                                            <input type="text" name="code" placeholder="Code">
                                                             <i class="la la-barcode"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 no-pdd">
-                                                      <button type="submit" class="btn btn-primary">Activation account</button>
+                                                      <button type="submit" class="btn btn-primary">Check code</button>
                                                     </div>
                                                 </div>
                                             </form>

@@ -36,7 +36,7 @@ ob_start();
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="password" name="passval" placeholder="Nhập Password cũ">
+													<input type="password" name="passval" placeholder="Please write old password">
 													<i class="la la-lock"></i>
 												</div>
 												<!--sn-field end-->
@@ -84,7 +84,7 @@ ob_start();
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="password" name="passval" placeholder="Nhập Password cũ">
+													<input type="password" name="passval" placeholder="Please write old password">
 													<i class="la la-lock"></i>
 												</div>
 												<!--sn-field end-->
@@ -134,7 +134,7 @@ ob_start();
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
 												<div class="sn-field">
-													<input type="password" name="passval" placeholder="Nhập Password cũ">
+													<input type="password" name="passval" placeholder="Please write old password">
 													<i class="la la-lock"></i>
 												</div>
 												<!--sn-field end-->

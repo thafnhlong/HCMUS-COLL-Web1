@@ -2,7 +2,14 @@
 ob_start();
   require_once 'init.php';
 ?>
-<?php include 'header-first.php'; ?>
+<?php include 'header-first.php'; 
+
+if (empty($_SESSION['EmailForgot']))
+{
+    header('Location: login.php');
+    exit();
+}
+?>
 <?php if (isset($_POST['submit'])): ?>
 <?php
   $success = false;
@@ -10,6 +17,7 @@ ob_start();
   {
     $success=true;
     UpdatePass($_SESSION['EmailForgot'],$_POST['pass']);
+    unset($_SESSION['EmailForgot']);
   }
 ?>
 <?php if ($success): ?>
