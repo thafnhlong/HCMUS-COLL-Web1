@@ -112,7 +112,7 @@ if(!empty($_GET['toid']))
     {
         $datatoid['id']=$uid['ID'];
         $datatoid['name']=$uid['Name'];
-        $datatoid['content']="Hãy gửi gì đó...";
+        $datatoid['content']="Say \"Hi\" to start conversation...";
         $datatoid['createAt']="Now";
         
         $toidarr = array( $datatoid );

@@ -48,7 +48,7 @@ ob_start();
 											<p><a href="#" class="text-danger">*Email or Password was wrong</a></p>
 											<div class="col-lg-12 no-pdd">
 												<div class="checky-sec">
-                          							<button type="submit" class="btn btn-primary">Đăng nhập</button>
+                          							<button type="submit" class="btn btn-primary">Login</button>
 													<a href="forgot-password.php">Forgot password?</a>
 												</div>
 											</div>
@@ -107,7 +107,7 @@ ob_start();
 											</div>
 											<div class="col-lg-12 no-pdd">
 												<div class="checky-sec">
-                          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                          <button type="submit" class="btn btn-primary">Login</button>
 						  <a href="forgot-password.php">Forgot password?</a>
 												</div>
 											</div>

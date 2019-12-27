@@ -47,24 +47,24 @@ $me2you = isRequest($currentUser['ID'],$profile['ID']);
 $you2me = isRequest($profile['ID'],$currentUser['ID']);
 if ($me2you && $you2me){
     $src = "deleteFriend.php?id={$profile['ID']}";
-    $valueAnchor = "Xóa bạn";
+    $valueAnchor = "Delete friend";
 } elseif ($you2me)
 {
     $src = "deleteFriend.php?id={$profile['ID']}";
-    $valueAnchor = "Hủy";
+    $valueAnchor = "Decline";
 ?>
                                                 <li><a href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
                                                 
 <?php                                           
     $src = "sendRequest.php?id={$profile['ID']}";
-    $valueAnchor = "Đồng ý";
+    $valueAnchor = "Accept";
 } elseif ($me2you){
     $src = "deleteRequest.php?id={$profile['ID']}";
-    $valueAnchor = "Xóa lời mời kết bạn";
-    $valueFollowing="Theo dõi";
+    $valueAnchor = "Delete my invitation";
+    $valueFollowing="Follow";
 } else {
     $src = "sendRequest.php?id={$profile['ID']}&s";
-    $valueAnchor = "Thêm bạn"; 
+    $valueAnchor = "Add friend"; 
 }
 ?>
 												<li>
@@ -73,12 +73,12 @@ if ($me2you && $you2me){
 <?php 
 $me_you=isfollow($currentUser['ID'],$profile['ID']);
 if($me_you ){
-    $valueFL="Hủy theo dõi";
+    $valueFL="UnFollow";
     $srcfl="deleteFollowing.php?id={$profile['ID']}";
 }
 else
 {
-    $valueFL="Theo dõi";
+    $valueFL="Follow";
     $srcfl="sendFollowing.php?id={$profile['ID']}&s=";
 }
 ?>
@@ -124,7 +124,7 @@ else
 									<div class="user-tab-sec">
 										<h3><?php echo $profile['Name'] ?></h3>
 										<div class="star-descp">
-											<span>Nghề nghiệp: <?php echo $profile['Job'] ?></span>
+											<span>Jobs: <?php echo $profile['Job'] ?></span>
 										</div><!--star-descp end-->
 										<div class="tab-feed">
 											
@@ -279,7 +279,7 @@ endforeach;
 									</div>
 									<div style="margin-top: 45px;" class="widget widget-portfolio">
 										<div class="wd-heady">
-											<h3>Thông tin cá nhân</h3>
+											<h3>Information user</h3>
 											<img src="images/photo-icon.png" alt="">
 										</div>
 										<div class="pf-gallery">

@@ -22,7 +22,7 @@ ob_start();
                   <div class="sign_in_sec current" id="tab-1">
                     <p style="color:green;margin-bottom: 10px;">*Vui lòng vào email để cập nhật mật khẩu</p>
                     <h3>Quên mật khẩu</h3>
-                    <form action="forgot_password.php" method="POST">
+                    <form action="forgot-password.php" method="POST">
                       <div class="row">
                         <div class="col-lg-12 no-pdd">
                             <label style="margin-bottom: 10px" ><strong>Email </strong></label>

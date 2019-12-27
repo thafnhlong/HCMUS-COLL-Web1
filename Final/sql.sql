@@ -54,10 +54,10 @@ CREATE TABLE `user` (
   `Status` int(11) NOT NULL DEFAULT '0',
   `Code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CodeForgot` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PhoneNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Chưa cập nhật',
-  `FaceBook` varchar(255) DEFAULT 'Chưa cập nhật',
-  `Address` varchar(255) DEFAULT 'Chưa cập nhật',
-  `Job` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Chưa cập nhật',
+  `PhoneNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Not updated',
+  `FaceBook` varchar(255) DEFAULT 'Not updated',
+  `Address` varchar(255) DEFAULT 'Not updated',
+  `Job` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Not updated',
   PRIMARY KEY (`ID`),
   UNIQUE KEY (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

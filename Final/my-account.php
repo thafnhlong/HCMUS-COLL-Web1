@@ -12,7 +12,7 @@ ob_start();
 ?>
 <!-- Xử lý -->
 
-<!-- cật nhật ảnh bìa -->
+<!-- cật nhật Cover Image -->
 <?php if( isset($_POST['submit'])): ?>
 <?php //saveCoverImage($currentUser['ID']); ?>
 <?php move_uploaded_file($_FILES['fileAvatar']['tmp_name'], 'images/cover/'.$currentUser['ID'].'.jpg');  ?>
@@ -42,7 +42,7 @@ ob_start();
 <?php header('Location: my-account.php'); ?>
 <?php endif; ?>
 
-<!-- cập nhật công việc -->
+<!-- Update công việc -->
 <?php if( isset($_POST['submitjob'],$_POST['job'])): ?>
 <?php updateJob($_POST['job'],$currentUser['ID']) ?>
 <?php header('Location: my-account.php'); ?>
@@ -158,9 +158,9 @@ ob_start();
 											<span>
 												<?php 
 													if($currentUser['Job']!=null)
-														echo "Nghề nghiệp: ". $currentUser['Job'];
+														echo "Jobs: ". $currentUser['Job'];
 													else
-														echo "Nghề nghiệp: Chưa cập nhật";
+														echo "Jobs: Not Update";
 												?>
 											</span>	
 											<i  data-toggle="modal" data-target="#ModalEditJob" class="fas fa-pen fa-xs" data-toggle="modal" data-target="#ModalEditProfile" style="cursor: pointer"></i>									
@@ -339,7 +339,7 @@ endforeach;
 											
 										</div>
 										<div class="wd-heady">										
-											<h3>Giới thiệu</h3>
+											<h3>Information</h3>
 											<div style="float: right">
 												<i class="fas fa-pen fa-xs" data-toggle="modal" data-target="#ModalEditProfile" style="cursor: pointer"></i>
 											</div>
@@ -388,7 +388,7 @@ endforeach;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" style="width: 800px; height: 500px;">
 			<div class="post-project">
-					<h3 >Cập nhật ảnh bìa</h3>
+					<h3 >Update Cover Image</h3>
 						<div class="post-project-fields" >
 								<form id='form1' action="my-account.php" method="post" enctype="multipart/form-data">
 									<div class="row">							
@@ -399,11 +399,11 @@ endforeach;
 											<div class="form-group">										
 												<input type="file" name="fileAvatar" id="fileSelect" style="width: 100px">						
 												<br>
-												<p><strong>Ghi chú:</strong> Chỉ cho phép định dạng .jpg, .jpeg, .gif và kích thước tối đa tệp tin là 5MB.</p>
+												<p><strong>Notes:</strong> Image type is only  .jpg, .jpeg, .gif and size <= 5MB</p>
 												<br>
 											</div>				
 										<div class="col-lg-12">
-											<button style="background-color: #e44d3a" type="submit" name="submit" class="btn btn-primary">Cập nhật </button>
+											<button style="background-color: #e44d3a" type="submit" name="submit" class="btn btn-primary">Update </button>
 											<button style="background-color: #e44d3a;width: 80px;margin-left: 400px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 										</div>
 									</div>
@@ -423,7 +423,7 @@ endforeach;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" style="width: 600px; height: 500px;">
 			<div class="post-project">
-					<h3 >Cập nhật Avatar</h3>
+					<h3 >Update Avatar</h3>
 						<div class="post-project-fields" >
 								<form id='form1' action="my-account.php" method="post" enctype="multipart/form-data">
 									<div class="row">							
@@ -434,12 +434,12 @@ endforeach;
 											<div class="form-group">										
 												<input type="file" name="filesAvt" id="fileSelectAvt" style="width: 100px">						
 												<br>
-												<p><strong>Ghi chú:</strong> Chỉ cho phép định dạng .jpg, .jpeg, .gif và kích thước tối đa tệp tin là 5MB.</p>
+												<p><strong>Notes:</strong> Image type is only  .jpg, .jpeg, .gif and size <= 5MB</p>
 												<br>
 											</div>
 											
 										<div class="col-lg-12">
-											<button style="background-color: #e44d3a" type="submit" name="submitAvt" class="btn btn-primary">Cập nhật </button>
+											<button style="background-color: #e44d3a" type="submit" name="submitAvt" class="btn btn-primary">Update </button>
 											<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 										</div>
 									</div>
@@ -459,12 +459,12 @@ endforeach;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" style="width: 600px; height: 420px;">
 			<div class="post-project">
-					<h3 >Cập nhật thông tin bản thân</h3>
+					<h3 >Update your information</h3>
 						<div class="post-project-fields" >
 								<form id='form1' action="my-account.php" method="post" >
 									<div class="row">							
 										<div class="col-lg-12 custom-file" style="margin-top:25px">
-											<label style="margin-top:10px;margin-bottom:10px" >Số điện thoại</label>                    
+											<label style="margin-top:10px;margin-bottom:10px" >Phone number</label>                    
 											<input type="text" class="form-control" name="phonenumber" value="<?php echo $currentUser['PhoneNumber'] ?>">
 										</div>
 										<div class="col-lg-12 custom-file" style="margin-top:35px">
@@ -472,11 +472,11 @@ endforeach;
 											<input type="email" class="form-control" name="email" value="<?php echo $currentUser['Email'] ?>">
 										</div>
 										<div class="col-lg-12 custom-file" style="margin-top:35px">
-											<label style="margin-top:10px;margin-bottom:10px" >Địa chỉ</label>                            
+											<label style="margin-top:10px;margin-bottom:10px" >Address</label>                            
 											<input type="text" class="form-control" name="address" value="<?php echo $currentUser['Address'] ?>">	
 											
 										<div class="col-lg-12">
-											<button style="background-color: #e44d3a" type="submit" name="submitprofile" class="btn btn-primary">Cập nhật </button>
+											<button style="background-color: #e44d3a" type="submit" name="submitprofile" class="btn btn-primary">Update </button>
 											<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 										</div>
 									</div>
@@ -496,16 +496,16 @@ endforeach;
 	<div class="modal-dialog" role="document">
 		<div class="modal-content" style="width: 600px; height: 300px;">
 			<div class="post-project">
-					<h3 >Cập nhật nghề nghiệp</h3>
+					<h3 >Update Jobs</h3>
 						<div class="post-project-fields" >
 								<form id='form1' action="my-account.php" method="post" >
 									<div class="row">																	
 										<div class="col-lg-12 custom-file" style="margin-top:35px">
-											<label style="margin-bottom:20px" >Nghề nghiệp</label>                            
+											<label style="margin-bottom:20px" >Jobs</label>                            
 											<input type="text" class="form-control" name="job" value="<?php echo $currentUser['Job'] ?>">	
 										
 										<div class="col-lg-12" style="margin-top: 35px">
-											<button style="background-color: #e44d3a" type="submit" name="submitjob" class="btn btn-primary">Cập nhật </button>
+											<button style="background-color: #e44d3a" type="submit" name="submitjob" class="btn btn-primary">Update </button>
 											<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 										</div>
 									</div>
@@ -555,7 +555,7 @@ endforeach;
 											</div>
 											<div class="col-lg-12 custom-file" style="margin-top:35px">																							
 											<div class="col-lg-12">
-												<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Cập nhật </button>
+												<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Update </button>
 												<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 											</div>
 										</div>

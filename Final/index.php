@@ -299,7 +299,7 @@ if ($countPage > 0):
                                           <ul class="pagination justify-content-center">
                                           
                                             <li class="page-item <?php if ($pagenum==1) echo "disabled"; ?>">
-                                              <a class="page-link" href="?num=<?php echo $pagenum-1?>" tabindex="-1">Quay lại</a>
+                                              <a class="page-link" href="?num=<?php echo $pagenum-1?>" tabindex="-1">Prev</a>
                                             </li>
 <?php
 for($i = 1; $i <= $countPage;$i++):
@@ -309,7 +309,7 @@ for($i = 1; $i <= $countPage;$i++):
 endfor;
 ?>        
                                             <li class="page-item <?php if ($pagenum==$countPage) echo "disabled" ?>">
-                                              <a class="page-link" href="?num=<?php echo $pagenum+1?>">Tiếp theo</a>
+                                              <a class="page-link" href="?num=<?php echo $pagenum+1?>">Next</a>
                                             </li>
                                             
                                           </ul>
@@ -435,7 +435,7 @@ endif;
 												</div>
 												<div class="col-lg-12 custom-file" style="margin-top:35px">																							
 												<div class="col-lg-12">
-													<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Cập nhật </button>
+													<button style="background-color: #e44d3a" type="submit" name="submiteditpost" class="btn btn-primary">Update </button>
 													<button style="background-color: #e44d3a;width: 80px;margin-left: 300px;" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 												</div>
 											</div>

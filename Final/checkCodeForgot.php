@@ -33,9 +33,9 @@ ob_start();
                                                             <i class="la la-barcode"></i>
                                                         </div>
                                                     </div>
-                                                    <span style="color:red">* Kích hoạt tài khoản thất bại</span>
+                                                    <span style="color:red">* Activate fail</span>
                                                     <div class="col-lg-12 no-pdd">
-                                                      <button type="submit" class="btn btn-primary">Kích hoạt tài khoản</button>
+                                                      <button type="submit" class="btn btn-primary">Activation account</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -83,7 +83,7 @@ ob_start();
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 no-pdd">
-                                                      <button type="submit" class="btn btn-primary">Kích hoạt tài khoản</button>
+                                                      <button type="submit" class="btn btn-primary">Activation account</button>
                                                     </div>
                                                 </div>
                                             </form>

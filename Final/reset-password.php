@@ -21,7 +21,7 @@ ob_start();
 						<div class="col-lg">
 							<div class="login-sec">
 								<div class="sign_in_sec current" id="tab-1">
-									<h3>Cập nhật mật khẩu mới thành công</h3>							
+									<h3>Password has changed</h3>							
 										<div class="row">
                     <a style="font-size:50px" href="login.php" title="">Login</a>
 										</div>
@@ -47,18 +47,18 @@ ob_start();
 						<div class="col-lg">
 							<div class="login-sec">
 								<div class="sign_in_sec current" id="tab-1">
-									<h3>Cập nhật mật khẩu mới</h3>
+									<h3>Update password</h3>
 									<form action="reset-password.php" method="POST">
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
                           <label style="margin-bottom: 10px" ><strong>New Password </strong></label>
 												<div class="sn-field">                                  
-                            <input type="password" class="form-control" name="pass" id="pass"  placeholder="Nhập mật khẩu mới ...">
+                            <input type="password" class="form-control" name="pass" id="pass"  placeholder="Please write your new password ...">
 													<i  class="la la-lock"></i>
 												</div>
 												<!--sn-field end-->
 											</div>
-                      <span style="color:red">*Mật khẩu không được để trống</span>										
+                      <span style="color:red">*Password can't be empty</span>										
 											<div class="col-lg-12 no-pdd">
 												<div class="checky-sec">
                           <button type="submit" name="submit" class="btn btn-primary">Tiếp theo</button>													
@@ -92,13 +92,13 @@ ob_start();
 						<div class="col-lg">
 							<div class="login-sec">
 								<div class="sign_in_sec current" id="tab-1">
-									<h3>Cập nhật mật khẩu mới</h3>
+									<h3>Update password</h3>
 									<form action="reset-password.php" method="POST">
 										<div class="row">
 											<div class="col-lg-12 no-pdd">
                           <label style="margin-bottom: 10px" ><strong>New Password </strong></label>
 												<div class="sn-field">                                  
-                            <input type="password" class="form-control" name="pass" id="pass"  placeholder="Nhập mật khẩu mới ...">
+                            <input type="password" class="form-control" name="pass" id="pass"  placeholder="Please write your new password ...">
 													<i  class="la la-lock"></i>
 												</div>
 												<!--sn-field end-->

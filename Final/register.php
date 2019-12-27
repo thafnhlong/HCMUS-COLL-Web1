@@ -69,9 +69,9 @@ ob_start();
                                 <i class="la la-map-marker"></i>
                               </div>
                             </div>
-                            <span style="color:green"> Vui lòng vào email để kích hoạt tài khoản</span>
+                            <span style="color:green"> Please check your email to confirm your account</span>
                             <div class="col-lg-12 no-pdd">
-                              <button type="submit" class="btn btn-primary">Đăng ký</button>
+                              <button type="submit" class="btn btn-primary">Register</button>
                             </div>
                           </div>
                         </form>
@@ -148,9 +148,9 @@ ob_start();
                               <i class="la la-map-marker"></i>
                             </div>
                           </div>
-                          <span style="color:red"> Đăng ký thất bại</span>
+                          <span style="color:red"> Register fail</span>
                           <div class="col-lg-12 no-pdd">
-                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
                           </div>
                         </div>
                       </form>
@@ -231,7 +231,7 @@ ob_start();
                           </div>
 
                           <div class="col-lg-12 no-pdd">
-                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
                           </div>
                         </div>
                       </form>

@@ -32,34 +32,34 @@ $me2you = isRequest($currentUser['ID'],$u['ID']);
 $you2me = isRequest($u['ID'],$currentUser['ID']);
 if ($me2you && $you2me){
     $src = "deleteFriend.php?id={$u['ID']}";
-    $valueAnchor = "Xóa bạn";
+    $valueAnchor = "Delete friend";
 } elseif ($you2me)
 {
     $src = "deleteFriend.php?id={$u['ID']}";
-    $valueAnchor = "Hủy";
+    $valueAnchor = "Decline";
     
 ?>
                                                 <li><a  href="<?php echo $src?>" title="" class="hre"> <?php echo $valueAnchor?></a></li>
 <?php    
     $src = "sendRequest.php?id={$u['ID']}";
-    $valueAnchor = "Đồng ý";
+    $valueAnchor = "Accept";
 } elseif ($me2you){
     $src = "deleteRequest.php?id={$u['ID']}";
-    $valueAnchor = "Xóa lời mời kết bạn";
+    $valueAnchor = "Delete your invatation";
 } else {
     $src = "sendRequest.php?id={$u['ID']}&s=";
-    $valueAnchor = "Thêm bạn";   
+    $valueAnchor = "Add friend";   
 }
 ?>
 <?php 
 $me_you=isfollow($currentUser['ID'],$u['ID']);
 if($me_you ){
-    $valueFL="Hủy theo dõi";
+    $valueFL="UnFollow";
     $srcfl="deleteFollowing.php?id={$u['ID']}";
 }
 else
 {
-    $valueFL="Theo dõi";
+    $valueFL="Follow";
     $srcfl="sendFollowing.php?id={$u['ID']}&s=";
 }
 ?>
